@@ -1,10 +1,7 @@
 import React from 'react';
-import Enzyme, {mount} from 'enzyme';
-import Adapter from 'enzyme-adapter-react-16';
+import {mount} from 'enzyme';
 
 import {GenreQuestionScreen} from './genre-question-screen.jsx';
-
-Enzyme.configure({adapter: new Adapter()});
 
 const mock = {
   genre: `rock`,
