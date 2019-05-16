@@ -10,7 +10,7 @@ it(`Welcome-screen's button work correctly`, () => {
   const welcomeScreen = shallow(<WelcomeScreen
     time={0}
     errorCount={0}
-    onWelcomeButtonClick={clickHandler}
+    onStartButtonClick={clickHandler}
   />);
 
   const startButton = welcomeScreen.find(`.welcome__button`);
