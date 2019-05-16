@@ -1,5 +1,6 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
+
 import {ArtistQuestionScreen} from './artist-question-screen.jsx';
 
 const mock = {

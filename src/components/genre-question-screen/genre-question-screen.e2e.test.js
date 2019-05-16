@@ -1,6 +1,7 @@
 import React from 'react';
-import Enzyme, {shallow} from 'enzyme';
+import Enzyme, {mount} from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
+
 import {GenreQuestionScreen} from './genre-question-screen.jsx';
 
 Enzyme.configure({adapter: new Adapter()});
@@ -34,16 +35,17 @@ it(`GenreQuestionScreen's form submit`, () => {
   } = mock;
 
   const formSubmit = jest.fn();
-  const genreQuestionScreen = shallow(<GenreQuestionScreen
+  const genreQuestionScreen = mount(<GenreQuestionScreen
     genre={genre}
     answers={answers}
     onAnswer={formSubmit}
   />);
 
   const submitButton = genreQuestionScreen.find(`.game__tracks`);
+  const formSendPrevention = jest.fn();
   submitButton.simulate(`submit`, {
-    preventDefault: () => {}
+    preventDefault: formSendPrevention,
   });
 
-  expect(formSubmit).toHaveBeenCalledTimes(1);
+  expect(formSendPrevention).toHaveBeenCalledTimes(1);
 });

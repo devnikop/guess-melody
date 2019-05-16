@@ -49,9 +49,7 @@ export class App extends React.PureComponent {
   }
 
   render() {
-    const {
-      questions,
-    } = this.props;
+    const {questions} = this.props;
     const {question} = this.state;
 
     return App.getScreen(question, this.props, () => {
