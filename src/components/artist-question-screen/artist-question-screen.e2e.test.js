@@ -5,27 +5,33 @@ import {ArtistQuestionScreen} from './artist-question-screen.jsx';
 
 Enzyme.configure({adapter: new Adapter()});
 
-const song = {
-  artist: `Jim Beam`,
-  src: `path.mp3`,
+const mock = {
+  song: {
+    artist: `Jim Beam`,
+    src: `path.mp3`,
+  },
+  answers: [
+    {
+      picture: `path.jpg`,
+      artist: `John Snow`,
+    },
+    {
+      picture: `path.jpg`,
+      artist: `Jack Daniels`,
+    },
+    {
+      picture: `path.jpg`,
+      artist: `Jim Beam`,
+    },
+  ],
 };
 
-const answers = [
-  {
-    picture: `path.jpg`,
-    artist: `John Snow`,
-  },
-  {
-    picture: `path.jpg`,
-    artist: `Jack Daniels`,
-  },
-  {
-    picture: `path.jpg`,
-    artist: `Jim Beam`,
-  },
-];
-
 it(`ArtistQuestionScreen's form submit`, () => {
+  const {
+    song,
+    answers
+  } = mock;
+
   const formSubmit = jest.fn();
   const artistQuestionScreen = shallow(<ArtistQuestionScreen
     song={song}
