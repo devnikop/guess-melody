@@ -5,14 +5,14 @@ export const WelcomeScreen = (props) => {
   const {
     time,
     errorCount,
-    onStartButtonClick
+    onClick
   } = props;
 
   return <section className="welcome">
     <div className="welcome__logo">
       <img src="img/melody-logo.png" alt="Угадай мелодию" width="186" height="83" />
     </div>
-    <button className="welcome__button" onClick={() => onStartButtonClick()}><span className="visually-hidden">Начать игру</span></button>
+    <button className="welcome__button" onClick={() => onClick()}><span className="visually-hidden">Начать игру</span></button>
     <h2 className="welcome__rules-title">Правила игры</h2>
     <p className="welcome__text">Правила просты:</p>
     <ul className="welcome__rules-list">
@@ -26,5 +26,5 @@ export const WelcomeScreen = (props) => {
 WelcomeScreen.propTypes = {
   time: propTypes.number.isRequired,
   errorCount: propTypes.number.isRequired,
-  onStartButtonClick: propTypes.func,
+  onClick: propTypes.func,
 };
