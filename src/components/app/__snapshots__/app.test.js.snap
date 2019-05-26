@@ -63,17 +63,7 @@ exports[`App correctly renders artist question screen 1`] = `
     </div>
     <div
       className="game__mistakes"
-    >
-      <div
-        className="wrong"
-      />
-      <div
-        className="wrong"
-      />
-      <div
-        className="wrong"
-      />
-    </div>
+    />
   </header>
   <section
     className="welcome"
@@ -194,17 +184,7 @@ exports[`App correctly renders first screen 1`] = `
     </div>
     <div
       className="game__mistakes"
-    >
-      <div
-        className="wrong"
-      />
-      <div
-        className="wrong"
-      />
-      <div
-        className="wrong"
-      />
-    </div>
+    />
   </header>
   <section
     className="welcome"
@@ -325,17 +305,7 @@ exports[`App correctly renders genre question screen 1`] = `
     </div>
     <div
       className="game__mistakes"
-    >
-      <div
-        className="wrong"
-      />
-      <div
-        className="wrong"
-      />
-      <div
-        className="wrong"
-      />
-    </div>
+    />
   </header>
   <section
     className="game__screen"

@@ -5,6 +5,7 @@ import {connect} from 'react-redux';
 import {ActionCreator} from '../../reducer';
 import {ArtistQuestionScreen} from '../artist-question-screen/artist-question-screen.jsx';
 import {GenreQuestionScreen} from '../genre-question-screen/genre-question-screen.jsx';
+import MistakeScreen from '../mistakeScreen/mistakeScreen.jsx';
 import {WelcomeScreen} from '../welcome-screen/welcome-screen.jsx';
 
 const Type = {
@@ -65,6 +66,7 @@ class App extends React.PureComponent {
     const {
       questions,
       step,
+      mistakes,
     } = this.props;
 
     return <section className={`game game--${Type.ARTIST}`}>
@@ -84,12 +86,9 @@ class App extends React.PureComponent {
           <span className="timer__dots">:</span>
           <span className="timer__secs">00</span>
         </div>
-
-        <div className="game__mistakes">
-          <div className="wrong"></div>
-          <div className="wrong"></div>
-          <div className="wrong"></div>
-        </div>
+        {<MistakeScreen
+          mistakes={mistakes}
+        />}
       </header>
       {this._getScreen(questions[step])}
     </section>;
