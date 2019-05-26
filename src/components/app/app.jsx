@@ -1,70 +1,106 @@
 import React from 'react';
 import propTypes from 'prop-types';
+import {connect} from 'react-redux';
 
-import {WelcomeScreen} from '../welcome-screen/welcome-screen.jsx';
-import {GenreQuestionScreen} from '../genre-question-screen/genre-question-screen.jsx';
+import {ActionCreator} from '../../reducer';
 import {ArtistQuestionScreen} from '../artist-question-screen/artist-question-screen.jsx';
+import {GenreQuestionScreen} from '../genre-question-screen/genre-question-screen.jsx';
+import {WelcomeScreen} from '../welcome-screen/welcome-screen.jsx';
 
-export class App extends React.PureComponent {
-  static getScreen(question, props, onUserAnswer) {
-    if (question === -1) {
+const Type = {
+  ARTIST: `game--artist`,
+  GENRE: `game--genre`,
+};
+
+class App extends React.PureComponent {
+  _getScreen(question) {
+    if (!question) {
       const {
         gameTime,
-        errorCount,
-      } = props;
+        maxMistakes,
+        onWelcomeScreenClick,
+      } = this.props;
 
       return <WelcomeScreen
         time={gameTime}
-        errorCount={errorCount}
-        onStartButtonClick={onUserAnswer}
+        errorCount={maxMistakes}
+        onClick={onWelcomeScreenClick}
       />;
     }
 
-    const {questions} = props;
-    const currentQuestion = questions[question];
+    const {
+      onUserAnswer,
+      mistakes,
+      maxMistakes
+    } = this.props;
 
-    switch (currentQuestion.type) {
+    switch (question.type) {
       case `genre`: return <GenreQuestionScreen
-        genre={currentQuestion.genre}
-        answers={currentQuestion.answers}
-        onAnswer={onUserAnswer}
+        question={question}
+        onAnswer={(userAnswer) => onUserAnswer(
+            userAnswer,
+            question,
+            mistakes,
+            maxMistakes
+        )}
+        key={`genre-question-screen${this.props.step}`}
       />;
 
       case `artist`: return <ArtistQuestionScreen
-        song={currentQuestion.song}
-        answers={currentQuestion.answers}
-        onAnswer={onUserAnswer}
+        question={question}
+        onAnswer={(userAnswer) => onUserAnswer(
+            userAnswer,
+            question,
+            mistakes,
+            maxMistakes
+        )}
+        key={`artist-question-screen${this.props.step}`}
       />;
     }
 
     return null;
   }
 
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      question: -1,
-    };
-  }
-
   render() {
-    const {questions} = this.props;
-    const {question} = this.state;
+    const {
+      questions,
+      step,
+    } = this.props;
 
-    return App.getScreen(question, this.props, () => {
-      this.setState({
-        question: question + 1 >= questions.length
-          ? -1
-          : question + 1,
-      });
-    });
+    return <section className={`game game--${Type.ARTIST}`}>
+      <header className="game__header">
+        <a className="game__back" href="#">
+          <span className="visually-hidden">Сыграть ещё раз</span>
+          <img className="game__logo" src="img/melody-logo-ginger.png" alt="Угадай мелодию" />
+        </a>
+
+        <svg xmlns="http://www.w3.org/2000/svg" className="timer" viewBox="0 0 780 780">
+          <circle className="timer__line" cx="390" cy="390" r="370"
+            style={{filter: `url(#blur)`, transform: `rotate(-90deg) scaleY(-1)`, transformOrigin: `center`}} />
+        </svg>
+
+        <div className="timer__value" xmlns="http://www.w3.org/1999/xhtml">
+          <span className="timer__mins">05</span>
+          <span className="timer__dots">:</span>
+          <span className="timer__secs">00</span>
+        </div>
+
+        <div className="game__mistakes">
+          <div className="wrong"></div>
+          <div className="wrong"></div>
+          <div className="wrong"></div>
+        </div>
+      </header>
+      {this._getScreen(questions[step])}
+    </section>;
+
   }
 }
 
 App.propTypes = {
+  maxMistakes: propTypes.number.isRequired,
+  mistakes: propTypes.number.isRequired,
   gameTime: propTypes.number.isRequired,
-  errorCount: propTypes.number.isRequired,
   questions: propTypes.arrayOf(propTypes.shape({
     type: propTypes.oneOf([`genre`, `artist`]).isRequired,
     genre: propTypes.oneOf([`rock`, `pop`, `jazz`]),
@@ -79,5 +115,36 @@ App.propTypes = {
       artist: propTypes.string,
     })).isRequired,
   })),
-  onStartButtonClick: propTypes.func,
+  step: propTypes.number.isRequired,
+  onUserAnswer: propTypes.func.isRequired,
+  onWelcomeScreenClick: propTypes.func.isRequired,
 };
+
+const mapStateToProps = (state, ownProps) =>
+  Object.assign({}, ownProps, {
+    step: state.step,
+    mistakes: state.mistakes,
+  });
+
+const mapDispatchToProps = (dispatch) => ({
+  onWelcomeScreenClick: () => {
+    dispatch(ActionCreator.incrementStep());
+  },
+
+  onUserAnswer: (question, userAnswer, mistakes, maxMistakes) => {
+    dispatch(ActionCreator.incrementStep());
+    dispatch(ActionCreator.incrementMistake(
+        userAnswer,
+        question,
+        mistakes,
+        maxMistakes
+    ));
+  },
+});
+
+export {App};
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(App);
