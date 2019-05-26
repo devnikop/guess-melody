@@ -9,6 +9,16 @@ const ActionCreator = {
     payload: 1,
   }),
 
+  shouldReset: (questions, step) => {
+    if (step + 1 >= questions.length) {
+      return {
+        type: `RESET`,
+      };
+    } else {
+      return null;
+    }
+  },
+
   incrementMistake: (userAnswer, question, mistakes, maxMistakes) => {
     let answerIsCorrect = false;
 

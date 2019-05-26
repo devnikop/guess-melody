@@ -14,7 +14,8 @@ const Type = {
 };
 
 class App extends React.PureComponent {
-  _getScreen(question) {
+  _getScreen(questions, step) {
+    const question = questions[step];
     if (!question) {
       const {
         gameTime,
@@ -40,7 +41,8 @@ class App extends React.PureComponent {
         question={question}
         onAnswer={(userAnswer) => onUserAnswer(
             userAnswer,
-            question,
+            questions,
+            step,
             mistakes,
             maxMistakes
         )}
@@ -51,7 +53,8 @@ class App extends React.PureComponent {
         question={question}
         onAnswer={(userAnswer) => onUserAnswer(
             userAnswer,
-            question,
+            questions,
+            step,
             mistakes,
             maxMistakes
         )}
@@ -90,7 +93,7 @@ class App extends React.PureComponent {
           mistakes={mistakes}
         />}
       </header>
-      {this._getScreen(questions[step])}
+      {this._getScreen(questions, step)}
     </section>;
 
   }
@@ -130,13 +133,17 @@ const mapDispatchToProps = (dispatch) => ({
     dispatch(ActionCreator.incrementStep());
   },
 
-  onUserAnswer: (question, userAnswer, mistakes, maxMistakes) => {
+  onUserAnswer: (userAnswer, questions, step, mistakes, maxMistakes) => {
     dispatch(ActionCreator.incrementStep());
     dispatch(ActionCreator.incrementMistake(
         userAnswer,
-        question,
+        questions[step],
         mistakes,
         maxMistakes
+    ));
+    dispatch(ActionCreator.shouldReset(
+        questions,
+        step
     ));
   },
 });
