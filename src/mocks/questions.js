@@ -41,5 +41,5 @@ export const questions = [
         artist: `Jim Beam`,
       },
     ],
-  }
+  },
 ];

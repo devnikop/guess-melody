@@ -4,45 +4,80 @@ import {mount} from 'enzyme';
 import {GenreQuestionScreen} from './genre-question-screen.jsx';
 
 const mock = {
-  genre: `rock`,
-  answers: [
-    {
-      src: `https://upload.wikimedia.org/wikipedia/commons/1/1f/Uganda_flag_and_national_anthem_-_Oh_Uganda_Land_o.ogg`,
-      genre: `rock`,
-    },
-    {
-      src: `https://upload.wikimedia.org/wikipedia/commons/1/1f/Uganda_flag_and_national_anthem_-_Oh_Uganda_Land_o.ogg`,
-      genre: `pop`,
-    },
-    {
-      src: `https://upload.wikimedia.org/wikipedia/commons/1/1f/Uganda_flag_and_national_anthem_-_Oh_Uganda_Land_o.ogg`,
-      genre: `jazz`,
-    },
-    {
-      src: `https://upload.wikimedia.org/wikipedia/commons/1/1f/Uganda_flag_and_national_anthem_-_Oh_Uganda_Land_o.ogg`,
-      genre: `rock`,
-    },
-  ],
+  question: {
+    type: `genre`,
+    genre: `rock`,
+    answers: [
+      {
+        src: `path`,
+        genre: `rock`,
+      },
+      {
+        src: `path`,
+        genre: `pop`,
+      },
+      {
+        src: `path`,
+        genre: `jazz`,
+      },
+      {
+        src: `path`,
+        genre: `rock`,
+      },
+    ],
+  },
 };
+
+HTMLMediaElement.prototype.pause = () => {};
 
 it(`GenreQuestionScreen's form submit`, () => {
   const {
-    genre,
-    answers
+    question
   } = mock;
 
   const formSubmit = jest.fn();
+  const formSendPrevention = jest.fn();
+
   const genreQuestionScreen = mount(<GenreQuestionScreen
-    genre={genre}
-    answers={answers}
+    question={question}
     onAnswer={formSubmit}
   />);
 
-  const submitButton = genreQuestionScreen.find(`.game__tracks`);
-  const formSendPrevention = jest.fn();
-  submitButton.simulate(`submit`, {
+  const formElement = genreQuestionScreen.find(`.game__tracks`);
+
+  const inputTwo = genreQuestionScreen.find(`input`).at(1);
+  inputTwo.simulate(`change`);
+  formElement.simulate(`submit`, {
     preventDefault: formSendPrevention,
   });
 
+  expect(genreQuestionScreen.state(`userAnswer`)).toEqual([false, true, false, false]);
+  expect(formSubmit).toHaveBeenCalledTimes(1);
   expect(formSendPrevention).toHaveBeenCalledTimes(1);
+  expect(formSubmit).toHaveBeenNthCalledWith(1, [false, true, false, false]);
+});
+
+it(`Rendered checkboxes are synchronized with state`, () => {
+  const {
+    question
+  } = mock;
+  const genreQuestionScreen = mount(<GenreQuestionScreen
+    question={question}
+    onAnswer={jest.fn()}
+  />);
+
+  expect(genreQuestionScreen.state(`userAnswer`)).toEqual([false, false, false, false]);
+
+  const inputs = genreQuestionScreen.find(`.game__input`);
+  const inputOne = inputs.at(0);
+  const inputTwo = inputs.at(1);
+
+  inputOne.simulate(`change`);
+  expect(genreQuestionScreen.state(`userAnswer`)).toEqual([true, false, false, false]);
+
+  inputOne.simulate(`change`);
+  expect(genreQuestionScreen.state(`userAnswer`)).toEqual([false, false, false, false]);
+
+  inputTwo.simulate(`change`);
+  expect(genreQuestionScreen.state(`userAnswer`)).toEqual([false, true, false, false]);
 });
