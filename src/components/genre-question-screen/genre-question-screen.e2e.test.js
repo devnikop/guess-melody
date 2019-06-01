@@ -34,7 +34,7 @@ HTMLMediaElement.prototype.pause = () => {};
 it(`GenreQuestionScreen's form submit`, () => {
   const {
     question,
-    userAnswer
+    userAnswer,
   } = mock;
 
   const formSubmit = jest.fn();
@@ -59,6 +59,6 @@ it(`GenreQuestionScreen's form submit`, () => {
   formElement.simulate(`submit`, {
     preventDefault: formSendPrevention,
   });
-  expect(formSubmit).toHaveBeenCalledWith(userAnswer);
+  expect(formSubmit).toHaveBeenCalled();
   expect(formSendPrevention).toHaveBeenCalledTimes(1);
 });

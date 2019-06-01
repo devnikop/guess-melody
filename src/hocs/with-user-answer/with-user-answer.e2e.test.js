@@ -36,6 +36,7 @@ it(`WithUserAnswer's userAnswer state changed correctly`, () => {
 
   const wrapper = shallow(<MockComponentWrapped
     question={question}
+    onAnswer={jest.fn()}
   />);
 
   expect(wrapper.props().userAnswer).toEqual([false, false, false, false]);

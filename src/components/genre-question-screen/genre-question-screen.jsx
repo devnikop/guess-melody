@@ -4,27 +4,25 @@ import propTypes from 'prop-types';
 import {AudioPlayer} from '../audio-player/audio-player.jsx';
 
 export class GenreQuestionScreen extends React.PureComponent {
+  constructor(props) {
+    super(props);
+
+    this._handleFormSubmit = this._handleFormSubmit.bind(this);
+  }
+
   render() {
     const {
       activePlayer,
       question,
-      onAnswer,
-      onChange,
       onPlayButtonClick,
       userAnswer,
+      onChange,
     } = this.props;
-    const {
-      genre,
-      answers,
-    } = question;
 
     return <section className="game__screen">
-      <h2 className="game__title">Выберите {genre} треки</h2>
-      <form className="game__tracks" onSubmit={(evt) => {
-        evt.preventDefault();
-        onAnswer(userAnswer);
-      }}>
-        {answers.map((it, i) => <div className="track" key={`answer-${i}`}>
+      <h2 className="game__title">Выберите {question.genre} треки</h2>
+      <form className="game__tracks" onSubmit={this._handleFormSubmit}>
+        {question.answers.map((it, i) => <div className="track" key={`answer-${i}`}>
           <AudioPlayer
             isPlaying={i === activePlayer}
             onPlayButtonClick={() => onPlayButtonClick(i)}
@@ -32,6 +30,7 @@ export class GenreQuestionScreen extends React.PureComponent {
           />
           <div className="game__answer">
             <input
+              checked={userAnswer[i]}
               className="game__input visually-hidden"
               type="checkbox" name="answer"
               value={`answer-${i}`}
@@ -45,6 +44,11 @@ export class GenreQuestionScreen extends React.PureComponent {
       </form>
     </section>;
   }
+
+  _handleFormSubmit(evt) {
+    evt.preventDefault();
+    this.props.onAnswer();
+  }
 }
 
 GenreQuestionScreen.propTypes = {
@@ -57,8 +61,8 @@ GenreQuestionScreen.propTypes = {
       src: propTypes.string.isRequired,
     })).isRequired,
   }),
+  onAnswer: propTypes.func.isRequired,
   onChange: propTypes.func.isRequired,
   onPlayButtonClick: propTypes.func.isRequired,
-  onAnswer: propTypes.func.isRequired,
   userAnswer: propTypes.arrayOf(propTypes.bool).isRequired,
 };

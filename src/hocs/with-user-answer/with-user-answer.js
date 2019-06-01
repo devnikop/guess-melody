@@ -11,21 +11,28 @@ const withUserAnswer = (Component) => {
       this.state = {
         userAnswer: new Array(answers.length).fill(false),
       };
+
+      this._onChange = this._onChange.bind(this);
+      this._onAnswer = this._onAnswer.bind(this);
     }
 
     render() {
       return <Component
         {...this.props}
         userAnswer={this.state.userAnswer}
-        onChange={(i) => {
-          const userAnswer = [...this.state.userAnswer];
-          userAnswer[i] = !userAnswer[i];
-
-          this.setState({
-            userAnswer,
-          });
-        }}
+        onChange={this._onChange}
+        onAnswer={this._onAnswer}
       />;
+    }
+
+    _onChange(i) {
+      const userAnswer = [...this.state.userAnswer];
+      userAnswer[i] = !userAnswer[i];
+      this.setState({userAnswer});
+    }
+
+    _onAnswer() {
+      this.props.onAnswer(this.state.userAnswer);
     }
   }
 
@@ -38,6 +45,7 @@ const withUserAnswer = (Component) => {
         src: propTypes.string.isRequired,
       })).isRequired,
     }),
+    onAnswer: propTypes.func.isRequired,
   };
 
   return WithUserAnswer;
