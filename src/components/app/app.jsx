@@ -9,8 +9,9 @@ import MistakeScreen from '../mistakeScreen/mistakeScreen.jsx';
 import {WelcomeScreen} from '../welcome-screen/welcome-screen.jsx';
 
 import withActivePlayer from '../../hocs/with-active-player/with-active-player';
+import withUserAnswer from '../../hocs/with-user-answer/with-user-answer';
 
-const GenreQuestionScreenWrapped = withActivePlayer(GenreQuestionScreen);
+const GenreQuestionScreenWrapped = withUserAnswer(withActivePlayer(GenreQuestionScreen));
 
 const Type = {
   ARTIST: `game--artist`,

@@ -4,6 +4,7 @@ import renderer from 'react-test-renderer';
 import {GenreQuestionScreen} from './genre-question-screen.jsx';
 
 const mock = {
+  userAnswer: [false, false, false, false],
   question: {
     type: `genre`,
     genre: `rock`,
@@ -30,7 +31,8 @@ const mock = {
 
 it(`GenreQuestionScreen correctly renders`, () => {
   const {
-    question
+    question,
+    userAnswer
   } = mock;
   const playButtonClickMock = jest.fn();
 
@@ -40,6 +42,8 @@ it(`GenreQuestionScreen correctly renders`, () => {
       question={question}
       onAnswer={jest.fn()}
       onPlayButtonClick={playButtonClickMock}
+      onChange={jest.fn()}
+      userAnswer={userAnswer}
     />)
     .toJSON();
 
