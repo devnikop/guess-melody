@@ -8,6 +8,10 @@ import {GenreQuestionScreen} from '../genre-question-screen/genre-question-scree
 import MistakeScreen from '../mistakeScreen/mistakeScreen.jsx';
 import {WelcomeScreen} from '../welcome-screen/welcome-screen.jsx';
 
+import withActivePlayer from '../../hocs/with-active-player/with-active-player';
+
+const GenreQuestionScreenWrapped = withActivePlayer(GenreQuestionScreen);
+
 const Type = {
   ARTIST: `game--artist`,
   GENRE: `game--genre`,
@@ -37,7 +41,7 @@ class App extends React.PureComponent {
     } = this.props;
 
     switch (question.type) {
-      case `genre`: return <GenreQuestionScreen
+      case `genre`: return <GenreQuestionScreenWrapped
         question={question}
         onAnswer={(userAnswer) => onUserAnswer(
             userAnswer,

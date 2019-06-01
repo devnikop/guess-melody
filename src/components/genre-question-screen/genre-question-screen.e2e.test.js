@@ -1,5 +1,5 @@
 import React from 'react';
-import {mount} from 'enzyme';
+import {shallow} from 'enzyme';
 
 import {GenreQuestionScreen} from './genre-question-screen.jsx';
 
@@ -38,9 +38,11 @@ it(`GenreQuestionScreen's form submit`, () => {
   const formSubmit = jest.fn();
   const formSendPrevention = jest.fn();
 
-  const genreQuestionScreen = mount(<GenreQuestionScreen
+  const genreQuestionScreen = shallow(<GenreQuestionScreen
+    activePlayer={-1}
     question={question}
     onAnswer={formSubmit}
+    onPlayButtonClick={jest.fn()}
   />);
 
   const formElement = genreQuestionScreen.find(`.game__tracks`);
@@ -61,9 +63,12 @@ it(`Rendered checkboxes are synchronized with state`, () => {
   const {
     question
   } = mock;
-  const genreQuestionScreen = mount(<GenreQuestionScreen
+
+  const genreQuestionScreen = shallow(<GenreQuestionScreen
+    activePlayer={-1}
     question={question}
     onAnswer={jest.fn()}
+    onPlayButtonClick={jest.fn()}
   />);
 
   expect(genreQuestionScreen.state(`userAnswer`)).toEqual([false, false, false, false]);
