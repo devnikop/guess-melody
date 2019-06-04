@@ -5,14 +5,16 @@ exports[`AudioPlayer correctly renders 1`] = `
   className="game__track"
 >
   <button
-    className="track__button track__button--pause"
-    onClick={[Function]}
+    className="
+          track__button
+          track__button--pause
+        "
+    disabled={true}
+    onClick={[MockFunction]}
     type="button"
   />
   <div
     className="track__status"
-  >
-    <audio />
-  </div>
+  />
 </div>
 `;

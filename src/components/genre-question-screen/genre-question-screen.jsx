@@ -1,8 +1,6 @@
 import React from 'react';
 import propTypes from 'prop-types';
 
-import {AudioPlayer} from '../audio-player/audio-player.jsx';
-
 export class GenreQuestionScreen extends React.PureComponent {
   constructor(props) {
     super(props);
@@ -12,22 +10,17 @@ export class GenreQuestionScreen extends React.PureComponent {
 
   render() {
     const {
-      activePlayer,
       question,
-      onPlayButtonClick,
       userAnswer,
       onChange,
+      renderAnswer,
     } = this.props;
 
     return <section className="game__screen">
       <h2 className="game__title">Выберите {question.genre} треки</h2>
       <form className="game__tracks" onSubmit={this._handleFormSubmit}>
         {question.answers.map((it, i) => <div className="track" key={`answer-${i}`}>
-          <AudioPlayer
-            isPlaying={i === activePlayer}
-            onPlayButtonClick={() => onPlayButtonClick(i)}
-            src={it.src}
-          />
+          {renderAnswer(it, i)}
           <div className="game__answer">
             <input
               checked={userAnswer[i]}
@@ -52,7 +45,6 @@ export class GenreQuestionScreen extends React.PureComponent {
 }
 
 GenreQuestionScreen.propTypes = {
-  activePlayer: propTypes.number.isRequired,
   question: propTypes.shape({
     type: propTypes.oneOf([`genre`]).isRequired,
     genre: propTypes.oneOf([`rock`, `pop`, `jazz`]).isRequired,
@@ -63,6 +55,6 @@ GenreQuestionScreen.propTypes = {
   }),
   onAnswer: propTypes.func.isRequired,
   onChange: propTypes.func.isRequired,
-  onPlayButtonClick: propTypes.func.isRequired,
+  renderAnswer: propTypes.func.isRequired,
   userAnswer: propTypes.arrayOf(propTypes.bool).isRequired,
 };

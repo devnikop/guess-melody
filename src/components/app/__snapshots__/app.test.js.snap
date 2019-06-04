@@ -319,7 +319,11 @@ exports[`App correctly renders genre question screen 1`] = `
       className="game__track"
     >
       <button
-        className="track__button track__button--play"
+        className="
+          track__button
+          track__button--play
+        "
+        disabled={true}
         onClick={[Function]}
         type="button"
       />

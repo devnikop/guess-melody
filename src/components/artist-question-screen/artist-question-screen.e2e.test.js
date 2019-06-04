@@ -34,6 +34,7 @@ it(`Click on user answer should pass to the callback data-object from which this
   const screen = shallow(<ArtistQuestionScreen
     onAnswer={onAnswer}
     question={question}
+    renderAnswer={jest.fn()}
   />);
 
   const answerInputs = screen.find(`.artist__input`);
@@ -69,6 +70,7 @@ it(`ArtistQuestionScreen's form submit`, () => {
   const artistQuestionScreen = shallow(<ArtistQuestionScreen
     question={question}
     onAnswer={formSubmit}
+    renderAnswer={jest.fn()}
   />);
 
   const artistInput = artistQuestionScreen.find(`.artist__input`).at(0);

@@ -34,14 +34,12 @@ it(`GenreQuestionScreen correctly renders`, () => {
     question,
     userAnswer
   } = mock;
-  const playButtonClickMock = jest.fn();
 
   const tree = renderer
     .create(<GenreQuestionScreen
-      activePlayer={-1}
       question={question}
       onAnswer={jest.fn()}
-      onPlayButtonClick={playButtonClickMock}
+      renderAnswer={jest.fn()}
       onChange={jest.fn()}
       userAnswer={userAnswer}
     />)

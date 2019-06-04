@@ -42,10 +42,9 @@ it(`GenreQuestionScreen's form submit`, () => {
   const onChangeMock = jest.fn();
 
   const genreQuestionScreen = shallow(<GenreQuestionScreen
-    activePlayer={-1}
     question={question}
     onAnswer={formSubmit}
-    onPlayButtonClick={jest.fn()}
+    renderAnswer={jest.fn()}
     onChange={onChangeMock}
     userAnswer={userAnswer}
   />);

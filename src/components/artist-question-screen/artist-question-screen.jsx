@@ -1,40 +1,20 @@
 import React from 'react';
 import propTypes from 'prop-types';
 
-import {AudioPlayer} from '../audio-player/audio-player.jsx';
-
 export class ArtistQuestionScreen extends React.PureComponent {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      isPlaying: false,
-    };
-  }
-
   render() {
-    const {isPlaying} = this.state;
     const {
       question,
-      onAnswer
+      onAnswer,
+      renderAnswer
     } = this.props;
-    const {
-      song,
-      answers,
-    } = question;
 
     return <section className="game__screen">
       <h2 className="game__title">Кто исполняет эту песню?</h2>
-      <AudioPlayer
-        isPlaying={isPlaying}
-        onPlayButtonClick={() => this.setState({
-          isPlaying: !isPlaying
-        })}
-        src={song.src}
-      />
+      {renderAnswer(question.song, 0)}
 
       <form className="game__artist">
-        {answers.map((it, i) =>
+        {question.answers.map((it, i) =>
           <div className="artist" key={i}>
             <input
               className="artist__input visually-hidden"
@@ -67,4 +47,5 @@ ArtistQuestionScreen.propTypes = {
     type: propTypes.oneOf([`artist`]).isRequired,
   }).isRequired,
   onAnswer: propTypes.func,
+  renderAnswer: propTypes.func.isRequired,
 };

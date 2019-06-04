@@ -9,9 +9,24 @@ import MistakeScreen from '../mistakeScreen/mistakeScreen.jsx';
 import {WelcomeScreen} from '../welcome-screen/welcome-screen.jsx';
 
 import withActivePlayer from '../../hocs/with-active-player/with-active-player';
+import withTransformProps from '../../hocs/with-transform-props/with-transform-props';
 import withUserAnswer from '../../hocs/with-user-answer/with-user-answer';
 
-const GenreQuestionScreenWrapped = withUserAnswer(withActivePlayer(GenreQuestionScreen));
+const transformPlayerToAnswer = (props) => {
+  const newProps = Object.assign({}, props, {
+    renderAnswer: props.renderPlayer,
+  });
+  delete newProps.renderPlayer;
+  return newProps;
+};
+
+const ArtistQuestionScreenWrapped = withActivePlayer(
+    withTransformProps(transformPlayerToAnswer)(ArtistQuestionScreen)
+);
+const GenreQuestionScreenWrapped = withUserAnswer(
+    withActivePlayer(
+        withTransformProps(transformPlayerToAnswer)(GenreQuestionScreen))
+);
 
 const Type = {
   ARTIST: `game--artist`,
@@ -54,7 +69,7 @@ class App extends React.PureComponent {
         key={`genre-question-screen${this.props.step}`}
       />;
 
-      case `artist`: return <ArtistQuestionScreen
+      case `artist`: return <ArtistQuestionScreenWrapped
         question={question}
         onAnswer={(userAnswer) => onUserAnswer(
             userAnswer,
