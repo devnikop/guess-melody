@@ -4,11 +4,11 @@ import PropTypes from 'prop-types';
 const VictoryScene = (props) => {
   const {
     mistakes,
-    onReplayClick
+    onClick
   } = props;
 
   const handleButtonClick = () => {
-    onReplayClick();
+    onClick();
   };
 
   return <section className="result">
@@ -29,7 +29,7 @@ const VictoryScene = (props) => {
 
 VictoryScene.propTypes = {
   mistakes: PropTypes.number.isRequired,
-  onReplayClick: PropTypes.func.isRequired,
+  onClick: PropTypes.func.isRequired,
 };
 
 export default VictoryScene;

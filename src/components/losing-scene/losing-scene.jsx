@@ -3,11 +3,11 @@ import PropTypes from 'prop-types';
 
 const LosingScene = (props) => {
   const {
-    onReplayClick
+    onClick
   } = props;
 
   const handleButtonClick = () => {
-    onReplayClick();
+    onClick();
   };
 
   return <section className="result">
@@ -26,7 +26,7 @@ const LosingScene = (props) => {
 };
 
 LosingScene.propTypes = {
-  onReplayClick: PropTypes.func.isRequired,
+  onClick: PropTypes.func.isRequired,
 };
 
 export default LosingScene;

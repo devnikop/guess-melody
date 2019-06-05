@@ -7,7 +7,7 @@ it(`VictoryScene renders correctly`, () => {
   const tree = renderer
     .create(<VictoryScene
       mistakes={3}
-      onReplayClick={jest.fn()}
+      onClick={jest.fn()}
     />)
     .toJSON();
 

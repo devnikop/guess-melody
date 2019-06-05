@@ -6,7 +6,7 @@ import LosingScene from './losing-scene.jsx';
 it(`LosingScene renders correctly`, () => {
   const tree = renderer
     .create(<LosingScene
-      onReplayClick={jest.fn()}
+      onClick={jest.fn()}
     />)
     .toJSON();
 
