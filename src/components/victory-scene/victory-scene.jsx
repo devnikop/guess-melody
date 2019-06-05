@@ -24,8 +24,7 @@ const VictoryScene = (props) => {
       onClick={handleButtonClick}>
         Сыграть ещё раз
     </button>
-  </section>
-  ;
+  </section>;
 };
 
 VictoryScene.propTypes = {
