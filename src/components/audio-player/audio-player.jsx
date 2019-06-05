@@ -1,5 +1,5 @@
 import React from 'react';
-import propTypes from 'prop-types';
+import PropTypes from 'prop-types';
 
 export class AudioPlayer extends React.PureComponent {
   render() {
@@ -28,8 +28,8 @@ export class AudioPlayer extends React.PureComponent {
 }
 
 AudioPlayer.propTypes = {
-  isPlaying: propTypes.bool.isRequired,
-  isLoading: propTypes.bool.isRequired,
-  renderAudio: propTypes.func.isRequired,
-  onPlayButtonClick: propTypes.func.isRequired,
+  isLoading: PropTypes.bool.isRequired,
+  isPlaying: PropTypes.bool.isRequired,
+  renderAudio: PropTypes.func.isRequired,
+  onPlayButtonClick: PropTypes.func.isRequired,
 };

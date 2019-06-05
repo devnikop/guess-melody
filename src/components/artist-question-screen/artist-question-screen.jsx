@@ -1,5 +1,5 @@
 import React from 'react';
-import propTypes from 'prop-types';
+import PropTypes from 'prop-types';
 
 export class ArtistQuestionScreen extends React.PureComponent {
   render() {
@@ -35,17 +35,17 @@ export class ArtistQuestionScreen extends React.PureComponent {
 }
 
 ArtistQuestionScreen.propTypes = {
-  question: propTypes.shape({
-    answers: propTypes.arrayOf(propTypes.shape({
-      artist: propTypes.string.isRequired,
-      picture: propTypes.string.isRequired,
+  question: PropTypes.shape({
+    answers: PropTypes.arrayOf(PropTypes.shape({
+      artist: PropTypes.string.isRequired,
+      picture: PropTypes.string.isRequired,
     })).isRequired,
-    song: propTypes.shape({
-      artist: propTypes.string.isRequired,
-      src: propTypes.string.isRequired,
+    song: PropTypes.shape({
+      artist: PropTypes.string.isRequired,
+      src: PropTypes.string.isRequired,
     }).isRequired,
-    type: propTypes.oneOf([`artist`]).isRequired,
+    type: PropTypes.oneOf([`artist`]).isRequired,
   }).isRequired,
-  onAnswer: propTypes.func,
-  renderAnswer: propTypes.func.isRequired,
+  onAnswer: PropTypes.func,
+  renderAnswer: PropTypes.func.isRequired,
 };

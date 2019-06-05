@@ -1,5 +1,5 @@
 import React from 'react';
-import propTypes from 'prop-types';
+import PropTypes from 'prop-types';
 
 export class GenreQuestionScreen extends React.PureComponent {
   constructor(props) {
@@ -45,16 +45,16 @@ export class GenreQuestionScreen extends React.PureComponent {
 }
 
 GenreQuestionScreen.propTypes = {
-  question: propTypes.shape({
-    type: propTypes.oneOf([`genre`]).isRequired,
-    genre: propTypes.oneOf([`rock`, `pop`, `jazz`]).isRequired,
-    answers: propTypes.arrayOf(propTypes.shape({
-      genre: propTypes.oneOf([`rock`, `pop`, `jazz`]).isRequired,
-      src: propTypes.string.isRequired,
+  question: PropTypes.shape({
+    type: PropTypes.oneOf([`genre`]).isRequired,
+    genre: PropTypes.oneOf([`rock`, `pop`, `jazz`]).isRequired,
+    answers: PropTypes.arrayOf(PropTypes.shape({
+      genre: PropTypes.oneOf([`rock`, `pop`, `jazz`]).isRequired,
+      src: PropTypes.string.isRequired,
     })).isRequired,
   }),
-  onAnswer: propTypes.func.isRequired,
-  onChange: propTypes.func.isRequired,
-  renderAnswer: propTypes.func.isRequired,
-  userAnswer: propTypes.arrayOf(propTypes.bool).isRequired,
+  onAnswer: PropTypes.func.isRequired,
+  onChange: PropTypes.func.isRequired,
+  renderAnswer: PropTypes.func.isRequired,
+  userAnswer: PropTypes.arrayOf(PropTypes.bool).isRequired,
 };

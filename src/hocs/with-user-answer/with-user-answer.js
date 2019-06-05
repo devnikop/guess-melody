@@ -1,5 +1,5 @@
 import React, {PureComponent} from 'react';
-import propTypes from 'prop-types';
+import PropTypes from 'prop-types';
 
 const withUserAnswer = (Component) => {
   class WithUserAnswer extends PureComponent {
@@ -37,15 +37,15 @@ const withUserAnswer = (Component) => {
   }
 
   WithUserAnswer.propTypes = {
-    question: propTypes.shape({
-      type: propTypes.oneOf([`genre`]).isRequired,
-      genre: propTypes.oneOf([`rock`, `pop`, `jazz`]).isRequired,
-      answers: propTypes.arrayOf(propTypes.shape({
-        genre: propTypes.oneOf([`rock`, `pop`, `jazz`]).isRequired,
-        src: propTypes.string.isRequired,
+    question: PropTypes.shape({
+      type: PropTypes.oneOf([`genre`]).isRequired,
+      genre: PropTypes.oneOf([`rock`, `pop`, `jazz`]).isRequired,
+      answers: PropTypes.arrayOf(PropTypes.shape({
+        genre: PropTypes.oneOf([`rock`, `pop`, `jazz`]).isRequired,
+        src: PropTypes.string.isRequired,
       })).isRequired,
     }),
-    onAnswer: propTypes.func.isRequired,
+    onAnswer: PropTypes.func.isRequired,
   };
 
   return WithUserAnswer;

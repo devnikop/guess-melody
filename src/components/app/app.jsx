@@ -1,5 +1,5 @@
 import React from 'react';
-import propTypes from 'prop-types';
+import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 
 import {ActionCreator} from '../../reducer';
@@ -120,26 +120,26 @@ class App extends React.PureComponent {
 }
 
 App.propTypes = {
-  maxMistakes: propTypes.number.isRequired,
-  mistakes: propTypes.number.isRequired,
-  gameTime: propTypes.number.isRequired,
-  questions: propTypes.arrayOf(propTypes.shape({
-    type: propTypes.oneOf([`genre`, `artist`]).isRequired,
-    genre: propTypes.oneOf([`rock`, `pop`, `jazz`]),
-    song: propTypes.shape({
-      artist: propTypes.string,
-      src: propTypes.string,
+  maxMistakes: PropTypes.number.isRequired,
+  mistakes: PropTypes.number.isRequired,
+  gameTime: PropTypes.number.isRequired,
+  questions: PropTypes.arrayOf(PropTypes.shape({
+    type: PropTypes.oneOf([`genre`, `artist`]).isRequired,
+    genre: PropTypes.oneOf([`rock`, `pop`, `jazz`]),
+    song: PropTypes.shape({
+      artist: PropTypes.string,
+      src: PropTypes.string,
     }),
-    answers: propTypes.arrayOf(propTypes.shape({
-      genre: propTypes.oneOf([`rock`, `pop`, `jazz`]),
-      src: propTypes.string,
-      picture: propTypes.string,
-      artist: propTypes.string,
+    answers: PropTypes.arrayOf(PropTypes.shape({
+      genre: PropTypes.oneOf([`rock`, `pop`, `jazz`]),
+      src: PropTypes.string,
+      picture: PropTypes.string,
+      artist: PropTypes.string,
     })).isRequired,
   })),
-  step: propTypes.number.isRequired,
-  onUserAnswer: propTypes.func.isRequired,
-  onWelcomeScreenClick: propTypes.func.isRequired,
+  step: PropTypes.number.isRequired,
+  onUserAnswer: PropTypes.func.isRequired,
+  onWelcomeScreenClick: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state, ownProps) =>
