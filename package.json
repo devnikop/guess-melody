@@ -37,6 +37,7 @@
     "redux": "4.0.1"
   },
   "jest": {
+    "collectCoverage": true,
     "setupFilesAfterEnv": [
       "<rootDir>src/setupTests.js"
     ]

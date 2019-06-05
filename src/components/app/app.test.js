@@ -56,13 +56,15 @@ it(`App correctly renders first screen`, () => {
 
   const tree = renderer
     .create(<App
-      mistakes={0}
-      maxMistakes={Infinity}
+      gameOver={false}
       gameTime={100}
-      questions={questions}
-      step={-1}
+      maxMistakes={Infinity}
+      mistakes={0}
+      onReplayClick={jest.fn()}
       onUserAnswer={jest.fn()}
       onWelcomeScreenClick={jest.fn()}
+      questions={questions}
+      step={-1}
     />)
     .toJSON();
 
@@ -72,13 +74,15 @@ it(`App correctly renders first screen`, () => {
 it(`App correctly renders genre question screen`, () => {
   const {questions} = mock;
   const tree = renderer.create(<App
-    mistakes={0}
-    maxMistakes={Infinity}
+    gameOver={false}
     gameTime={100}
-    questions={questions}
-    step={1}
+    maxMistakes={Infinity}
+    mistakes={0}
+    onReplayClick={jest.fn()}
     onUserAnswer={jest.fn()}
     onWelcomeScreenClick={jest.fn()}
+    questions={questions}
+    step={0}
   />, {
     createNodeMock: () => {
       return {};
@@ -91,13 +95,57 @@ it(`App correctly renders genre question screen`, () => {
 it(`App correctly renders artist question screen`, () => {
   const {questions} = mock;
   const tree = renderer.create(<App
-    mistakes={0}
-    maxMistakes={Infinity}
+    gameOver={false}
     gameTime={100}
-    questions={questions}
-    step={2}
+    maxMistakes={Infinity}
+    mistakes={0}
+    onReplayClick={jest.fn()}
     onUserAnswer={jest.fn()}
     onWelcomeScreenClick={jest.fn()}
+    questions={questions}
+    step={1}
+  />, {
+    createNodeMock: () => {
+      return {};
+    }
+  }).toJSON();
+
+  expect(tree).toMatchSnapshot();
+});
+
+it(`App correctly renders victory screen`, () => {
+  const {questions} = mock;
+  const tree = renderer.create(<App
+    gameOver={false}
+    gameTime={100}
+    maxMistakes={Infinity}
+    mistakes={0}
+    onReplayClick={jest.fn()}
+    onUserAnswer={jest.fn()}
+    onWelcomeScreenClick={jest.fn()}
+    questions={questions}
+    step={2}
+  />, {
+    createNodeMock: () => {
+      return {};
+    }
+  }).toJSON();
+
+  expect(tree).toMatchSnapshot();
+});
+
+it(`App correctly renders losing screen`, () => {
+  const {questions} = mock;
+  const tree = renderer.create(<App
+    gameOver={false}
+    gameTime={100}
+    maxMistakes={1}
+    mistakes={1}
+    onReplayClick={jest.fn()}
+    onUserAnswer={jest.fn()}
+    onWelcomeScreenClick={jest.fn()}
+    questions={questions}
+    step={0}
   />, {
     createNodeMock: () => {
       return {};

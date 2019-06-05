@@ -9,7 +9,7 @@ import {reducer} from './reducer';
 
 const gameSettings = {
   gameTime: 5,
-  errorCount: 3,
+  errorCount: 1,
 };
 
 const init = (gameQuestions) => {

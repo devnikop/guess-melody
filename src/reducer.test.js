@@ -53,18 +53,27 @@ const mock = {
   ],
 
   initialState: {
+    gameOver: false,
     step: -1,
     mistakes: 0,
   },
   stateForReset: {
+    gameOver: false,
     step: 10000,
     mistakes: 3289,
   },
   incrementedStep: {
+    gameOver: false,
     step: 0,
     mistakes: 0,
   },
+  gameOverTrueState: {
+    gameOver: true,
+    step: -1,
+    mistakes: 0,
+  },
   incrementedMistakes: {
+    gameOver: false,
     step: -1,
     mistakes: 1,
   },
@@ -79,9 +88,7 @@ describe(`Action creator work correctly`, () => {
   });
 
   it(`Action creator for shouldReset returns correct action`, () => {
-    const {questions} = mock;
-
-    expect(ActionCreator.shouldReset(questions, 1)).toEqual({
+    expect(ActionCreator.restart()).toEqual({
       type: `RESET`,
     });
   });
@@ -204,7 +211,7 @@ describe(`Action creator work correctly`, () => {
     });
   });
 
-  it(`Action creator resets state if user is answered incorrectly and mistakes limit reached`, () => {
+  it(`Action creator for user is answered incorrectly and mistakes limit reached returns GAME_OVER with payload true`, () => {
     expect(ActionCreator.incrementMistake({
       artist: `incorrect`,
       picture: ``,
@@ -229,7 +236,8 @@ describe(`Action creator work correctly`, () => {
         },
       ]
     }, Infinity, 0)).toEqual({
-      type: `RESET`,
+      type: `GAME_OVER`,
+      payload: true
     });
   });
 });
@@ -363,7 +371,17 @@ describe(`Reducer works correctly`, () => {
     expect(reducer(initialState, action)).toEqual(incrementedMistakes);
   });
 
-  it(`Reducer should correctly reset application state`, () => {
+  it(`Should set true for gameOver state`, () => {
+    const {initialState, gameOverTrueState} = mock;
+    const action = {
+      type: `GAME_OVER`,
+      payload: true,
+    };
+
+    expect(reducer(initialState, action)).toEqual(gameOverTrueState);
+  });
+
+  it(`Should correctly reset application state`, () => {
     const {initialState, stateForReset} = mock;
 
     expect(reducer(stateForReset, {type: `RESET`})).toEqual(initialState);

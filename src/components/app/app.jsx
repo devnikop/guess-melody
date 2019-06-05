@@ -1,12 +1,14 @@
-import React from 'react';
-import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
+import PropTypes from 'prop-types';
+import React from 'react';
 
 import {ActionCreator} from '../../reducer';
 import {ArtistQuestionScreen} from '../artist-question-screen/artist-question-screen.jsx';
 import {GenreQuestionScreen} from '../genre-question-screen/genre-question-screen.jsx';
-import MistakeScreen from '../mistakeScreen/mistakeScreen.jsx';
 import {WelcomeScreen} from '../welcome-screen/welcome-screen.jsx';
+import LosingScene from '../losing-scene/losing-scene.jsx';
+import MistakeScreen from '../mistakeScreen/mistakeScreen.jsx';
+import VictoryScene from '../victory-scene/victory-scene.jsx';
 
 import withActivePlayer from '../../hocs/with-active-player/with-active-player';
 import withTransformProps from '../../hocs/with-transform-props/with-transform-props';
@@ -36,7 +38,27 @@ const Type = {
 class App extends React.PureComponent {
   _getScreen(questions, step) {
     const question = questions[step];
-    if (!question) {
+    const {
+      gameOver,
+      onReplayClick
+    } = this.props;
+
+    if (gameOver) {
+      return <LosingScene
+        onClick={() => onReplayClick()}
+      />;
+    }
+
+    if (step >= questions.length) {
+      const {
+        mistakes,
+      } = this.props;
+
+      return <VictoryScene
+        mistakes={mistakes}
+        onClick={() => onReplayClick()}
+      />;
+    } else if (!question) {
       const {
         gameTime,
         maxMistakes,
@@ -120,9 +142,13 @@ class App extends React.PureComponent {
 }
 
 App.propTypes = {
+  gameOver: PropTypes.bool.isRequired,
+  gameTime: PropTypes.number.isRequired,
   maxMistakes: PropTypes.number.isRequired,
   mistakes: PropTypes.number.isRequired,
-  gameTime: PropTypes.number.isRequired,
+  onReplayClick: PropTypes.func.isRequired,
+  onUserAnswer: PropTypes.func.isRequired,
+  onWelcomeScreenClick: PropTypes.func.isRequired,
   questions: PropTypes.arrayOf(PropTypes.shape({
     type: PropTypes.oneOf([`genre`, `artist`]).isRequired,
     genre: PropTypes.oneOf([`rock`, `pop`, `jazz`]),
@@ -138,19 +164,22 @@ App.propTypes = {
     })).isRequired,
   })),
   step: PropTypes.number.isRequired,
-  onUserAnswer: PropTypes.func.isRequired,
-  onWelcomeScreenClick: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state, ownProps) =>
   Object.assign({}, ownProps, {
     step: state.step,
     mistakes: state.mistakes,
+    gameOver: state.gameOver,
   });
 
 const mapDispatchToProps = (dispatch) => ({
   onWelcomeScreenClick: () => {
     dispatch(ActionCreator.incrementStep());
+  },
+
+  onReplayClick: () => {
+    dispatch(ActionCreator.restart());
   },
 
   onUserAnswer: (userAnswer, questions, step, mistakes, maxMistakes) => {
@@ -160,10 +189,6 @@ const mapDispatchToProps = (dispatch) => ({
         questions[step],
         mistakes,
         maxMistakes
-    ));
-    dispatch(ActionCreator.shouldReset(
-        questions,
-        step
     ));
   },
 });

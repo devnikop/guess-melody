@@ -1,23 +1,25 @@
 const initialState = {
-  step: -1,
+  gameOver: false,
   mistakes: 0,
+  step: -1,
 };
+
+const ACTION_TYPE = new Map([
+  [`incrementStep`, `INCREMENT_STEP`],
+  [`incrementMistake`, `INCREMENT_MISTAKES`],
+  [`gameOver`, `GAME_OVER`],
+  [`reset`, `RESET`],
+]);
 
 const ActionCreator = {
   incrementStep: () => ({
-    type: `INCREMENT_STEP`,
+    type: ACTION_TYPE.get(`incrementStep`),
     payload: 1,
   }),
 
-  shouldReset: (questions, step) => {
-    if (step + 1 >= questions.length) {
-      return {
-        type: `RESET`,
-      };
-    } else {
-      return null;
-    }
-  },
+  restart: () => ({
+    type: ACTION_TYPE.get(`reset`),
+  }),
 
   incrementMistake: (userAnswer, question, mistakes, maxMistakes) => {
     let answerIsCorrect = false;
@@ -33,12 +35,13 @@ const ActionCreator = {
 
     if (!answerIsCorrect && mistakes + 1 >= maxMistakes) {
       return {
-        type: `RESET`,
+        type: ACTION_TYPE.get(`gameOver`),
+        payload: true,
       };
     }
 
     return {
-      type: `INCREMENT_MISTAKES`,
+      type: ACTION_TYPE.get(`incrementMistake`),
       payload: answerIsCorrect ? 0 : 1,
     };
   },
@@ -56,15 +59,19 @@ const isGenreAnswerCorrect = (userAnswer, question) => {
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
-    case `INCREMENT_STEP`:
+    case ACTION_TYPE.get(`incrementStep`):
       return Object.assign({}, state, {
         step: state.step + action.payload,
       });
-    case `INCREMENT_MISTAKES`:
+    case ACTION_TYPE.get(`incrementMistake`):
       return Object.assign({}, state, {
         mistakes: state.mistakes + action.payload,
       });
-    case `RESET`:
+    case ACTION_TYPE.get(`gameOver`):
+      return Object.assign({}, state, {
+        gameOver: action.payload,
+      });
+    case ACTION_TYPE.get(`reset`):
       return Object.assign({}, initialState);
   }
   return state;
