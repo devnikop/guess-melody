@@ -19,23 +19,10 @@ exports[`GenreQuestionScreen correctly renders 1`] = `
       className="track"
     >
       <div
-        className="game__track"
-      >
-        <button
-          className="track__button track__button--play"
-          onClick={[Function]}
-          type="button"
-        />
-        <div
-          className="track__status"
-        >
-          <audio />
-        </div>
-      </div>
-      <div
         className="game__answer"
       >
         <input
+          checked={false}
           className="game__input visually-hidden"
           id="answer-0"
           name="answer"
@@ -55,23 +42,10 @@ exports[`GenreQuestionScreen correctly renders 1`] = `
       className="track"
     >
       <div
-        className="game__track"
-      >
-        <button
-          className="track__button track__button--play"
-          onClick={[Function]}
-          type="button"
-        />
-        <div
-          className="track__status"
-        >
-          <audio />
-        </div>
-      </div>
-      <div
         className="game__answer"
       >
         <input
+          checked={false}
           className="game__input visually-hidden"
           id="answer-1"
           name="answer"
@@ -91,23 +65,10 @@ exports[`GenreQuestionScreen correctly renders 1`] = `
       className="track"
     >
       <div
-        className="game__track"
-      >
-        <button
-          className="track__button track__button--play"
-          onClick={[Function]}
-          type="button"
-        />
-        <div
-          className="track__status"
-        >
-          <audio />
-        </div>
-      </div>
-      <div
         className="game__answer"
       >
         <input
+          checked={false}
           className="game__input visually-hidden"
           id="answer-2"
           name="answer"
@@ -127,23 +88,10 @@ exports[`GenreQuestionScreen correctly renders 1`] = `
       className="track"
     >
       <div
-        className="game__track"
-      >
-        <button
-          className="track__button track__button--play"
-          onClick={[Function]}
-          type="button"
-        />
-        <div
-          className="track__status"
-        >
-          <audio />
-        </div>
-      </div>
-      <div
         className="game__answer"
       >
         <input
+          checked={false}
           className="game__input visually-hidden"
           id="answer-3"
           name="answer"

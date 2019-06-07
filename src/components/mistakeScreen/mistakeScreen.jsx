@@ -1,5 +1,5 @@
 import React from 'react';
-import propTypes from 'prop-types';
+import PropTypes from 'prop-types';
 
 const MistakeScreen = (props) => {
   const {mistakes} = props;
@@ -12,7 +12,7 @@ const MistakeScreen = (props) => {
 };
 
 MistakeScreen.propTypes = {
-  mistakes: propTypes.number.isRequired
+  mistakes: PropTypes.number.isRequired
 };
 
 export default MistakeScreen;

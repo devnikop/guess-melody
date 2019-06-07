@@ -4,6 +4,7 @@ import renderer from 'react-test-renderer';
 import {GenreQuestionScreen} from './genre-question-screen.jsx';
 
 const mock = {
+  userAnswer: [false, false, false, false],
   question: {
     type: `genre`,
     genre: `rock`,
@@ -30,13 +31,17 @@ const mock = {
 
 it(`GenreQuestionScreen correctly renders`, () => {
   const {
-    question
+    question,
+    userAnswer
   } = mock;
 
   const tree = renderer
     .create(<GenreQuestionScreen
       question={question}
       onAnswer={jest.fn()}
+      renderAnswer={jest.fn()}
+      onChange={jest.fn()}
+      userAnswer={userAnswer}
     />)
     .toJSON();
 

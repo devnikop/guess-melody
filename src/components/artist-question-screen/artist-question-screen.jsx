@@ -1,40 +1,20 @@
 import React from 'react';
-import propTypes from 'prop-types';
-
-import {AudioPlayer} from '../audio-player/audio-player.jsx';
+import PropTypes from 'prop-types';
 
 export class ArtistQuestionScreen extends React.PureComponent {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      isPlaying: false,
-    };
-  }
-
   render() {
-    const {isPlaying} = this.state;
     const {
       question,
-      onAnswer
+      onAnswer,
+      renderAnswer
     } = this.props;
-    const {
-      song,
-      answers,
-    } = question;
 
     return <section className="game__screen">
       <h2 className="game__title">Кто исполняет эту песню?</h2>
-      <AudioPlayer
-        isPlaying={isPlaying}
-        onPlayButtonClick={() => this.setState({
-          isPlaying: !isPlaying
-        })}
-        src={song.src}
-      />
+      {renderAnswer(question.song, 0)}
 
       <form className="game__artist">
-        {answers.map((it, i) =>
+        {question.answers.map((it, i) =>
           <div className="artist" key={i}>
             <input
               className="artist__input visually-hidden"
@@ -55,16 +35,17 @@ export class ArtistQuestionScreen extends React.PureComponent {
 }
 
 ArtistQuestionScreen.propTypes = {
-  question: propTypes.shape({
-    answers: propTypes.arrayOf(propTypes.shape({
-      artist: propTypes.string.isRequired,
-      picture: propTypes.string.isRequired,
+  question: PropTypes.shape({
+    answers: PropTypes.arrayOf(PropTypes.shape({
+      artist: PropTypes.string.isRequired,
+      picture: PropTypes.string.isRequired,
     })).isRequired,
-    song: propTypes.shape({
-      artist: propTypes.string.isRequired,
-      src: propTypes.string.isRequired,
+    song: PropTypes.shape({
+      artist: PropTypes.string.isRequired,
+      src: PropTypes.string.isRequired,
     }).isRequired,
-    type: propTypes.oneOf([`artist`]).isRequired,
+    type: PropTypes.oneOf([`artist`]).isRequired,
   }).isRequired,
-  onAnswer: propTypes.func,
+  onAnswer: PropTypes.func,
+  renderAnswer: PropTypes.func.isRequired,
 };

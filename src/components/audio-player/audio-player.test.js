@@ -13,7 +13,9 @@ it(`AudioPlayer correctly renders`, () => {
   const tree = renderer
     .create(<AudioPlayer
       isPlaying={true}
+      isLoading={true}
       onPlayButtonClick={jest.fn()}
+      renderAudio={jest.fn()}
       src={src}
     />)
     .toJSON();

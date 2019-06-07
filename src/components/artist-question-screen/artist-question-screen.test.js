@@ -36,6 +36,7 @@ it(`ArtistQuestionScreen correctly renders`, () => {
     .create(<ArtistQuestionScreen
       question={question}
       onAnswer={jest.fn()}
+      renderAnswer={jest.fn()}
     />)
     .toJSON();
 

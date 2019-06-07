@@ -64,6 +64,10 @@ const mock = {
     step: 0,
     mistakes: 0,
   },
+  gameOverTrueState: {
+    step: -1,
+    mistakes: 0,
+  },
   incrementedMistakes: {
     step: -1,
     mistakes: 1,
@@ -79,9 +83,7 @@ describe(`Action creator work correctly`, () => {
   });
 
   it(`Action creator for shouldReset returns correct action`, () => {
-    const {questions} = mock;
-
-    expect(ActionCreator.shouldReset(questions, 1)).toEqual({
+    expect(ActionCreator.restart()).toEqual({
       type: `RESET`,
     });
   });
@@ -110,7 +112,7 @@ describe(`Action creator work correctly`, () => {
           artist: `incorrect-2`,
         },
       ],
-    }, 0, Infinity)).toEqual({
+    })).toEqual({
       type: `INCREMENT_MISTAKES`,
       payload: 0,
     });
@@ -140,7 +142,7 @@ describe(`Action creator work correctly`, () => {
           artist: `incorrect-2`,
         },
       ],
-    }, 0, Infinity)).toEqual({
+    })).toEqual({
       type: `INCREMENT_MISTAKES`,
       payload: 1,
     });
@@ -169,7 +171,7 @@ describe(`Action creator work correctly`, () => {
               genre: `correct`,
             },
           ],
-        }, 0, Infinity)).toEqual({
+        })).toEqual({
       type: `INCREMENT_MISTAKES`,
       payload: 0,
     });
@@ -198,38 +200,9 @@ describe(`Action creator work correctly`, () => {
               genre: `correct`,
             },
           ],
-        }, 0, Infinity)).toEqual({
+        })).toEqual({
       type: `INCREMENT_MISTAKES`,
       payload: 1,
-    });
-  });
-
-  it(`Action creator resets state if user is answered incorrectly and mistakes limit reached`, () => {
-    expect(ActionCreator.incrementMistake({
-      artist: `incorrect`,
-      picture: ``,
-    }, {
-      type: `artist`,
-      song: {
-        artist: `correct`,
-        src: ``,
-      },
-      answers: [
-        {
-          artist: `correct`,
-          picture: ``,
-        },
-        {
-          artist: `incorrect`,
-          picture: ``,
-        },
-        {
-          artist: `incorrect-2`,
-          picture: ``,
-        },
-      ]
-    }, Infinity, 0)).toEqual({
-      type: `RESET`,
     });
   });
 });
@@ -363,7 +336,7 @@ describe(`Reducer works correctly`, () => {
     expect(reducer(initialState, action)).toEqual(incrementedMistakes);
   });
 
-  it(`Reducer should correctly reset application state`, () => {
+  it(`Should correctly reset application state`, () => {
     const {initialState, stateForReset} = mock;
 
     expect(reducer(stateForReset, {type: `RESET`})).toEqual(initialState);
