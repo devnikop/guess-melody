@@ -53,27 +53,22 @@ const mock = {
   ],
 
   initialState: {
-    gameOver: false,
     step: -1,
     mistakes: 0,
   },
   stateForReset: {
-    gameOver: false,
     step: 10000,
     mistakes: 3289,
   },
   incrementedStep: {
-    gameOver: false,
     step: 0,
     mistakes: 0,
   },
   gameOverTrueState: {
-    gameOver: true,
     step: -1,
     mistakes: 0,
   },
   incrementedMistakes: {
-    gameOver: false,
     step: -1,
     mistakes: 1,
   },
@@ -117,7 +112,7 @@ describe(`Action creator work correctly`, () => {
           artist: `incorrect-2`,
         },
       ],
-    }, 0, Infinity)).toEqual({
+    })).toEqual({
       type: `INCREMENT_MISTAKES`,
       payload: 0,
     });
@@ -147,7 +142,7 @@ describe(`Action creator work correctly`, () => {
           artist: `incorrect-2`,
         },
       ],
-    }, 0, Infinity)).toEqual({
+    })).toEqual({
       type: `INCREMENT_MISTAKES`,
       payload: 1,
     });
@@ -176,7 +171,7 @@ describe(`Action creator work correctly`, () => {
               genre: `correct`,
             },
           ],
-        }, 0, Infinity)).toEqual({
+        })).toEqual({
       type: `INCREMENT_MISTAKES`,
       payload: 0,
     });
@@ -205,39 +200,9 @@ describe(`Action creator work correctly`, () => {
               genre: `correct`,
             },
           ],
-        }, 0, Infinity)).toEqual({
+        })).toEqual({
       type: `INCREMENT_MISTAKES`,
       payload: 1,
-    });
-  });
-
-  it(`Action creator for user is answered incorrectly and mistakes limit reached returns GAME_OVER with payload true`, () => {
-    expect(ActionCreator.incrementMistake({
-      artist: `incorrect`,
-      picture: ``,
-    }, {
-      type: `artist`,
-      song: {
-        artist: `correct`,
-        src: ``,
-      },
-      answers: [
-        {
-          artist: `correct`,
-          picture: ``,
-        },
-        {
-          artist: `incorrect`,
-          picture: ``,
-        },
-        {
-          artist: `incorrect-2`,
-          picture: ``,
-        },
-      ]
-    }, Infinity, 0)).toEqual({
-      type: `GAME_OVER`,
-      payload: true
     });
   });
 });
@@ -369,16 +334,6 @@ describe(`Reducer works correctly`, () => {
     };
 
     expect(reducer(initialState, action)).toEqual(incrementedMistakes);
-  });
-
-  it(`Should set true for gameOver state`, () => {
-    const {initialState, gameOverTrueState} = mock;
-    const action = {
-      type: `GAME_OVER`,
-      payload: true,
-    };
-
-    expect(reducer(initialState, action)).toEqual(gameOverTrueState);
   });
 
   it(`Should correctly reset application state`, () => {

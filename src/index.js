@@ -7,10 +7,14 @@ import App from './components/app/app.jsx';
 import {questions} from './mocks/questions';
 import {reducer} from './reducer';
 
+import withChangeScreen from './hocs/with-change-screen/with-change-screen';
+
 const gameSettings = {
   gameTime: 5,
-  errorCount: 1,
+  errorCount: 2,
 };
+
+const AppWrapped = withChangeScreen(App);
 
 const init = (gameQuestions) => {
   const {errorCount, gameTime} = gameSettings;
@@ -21,7 +25,7 @@ const init = (gameQuestions) => {
 
   ReactDOM.render(
       <Provider store={store}>
-        <App
+        <AppWrapped
           maxMistakes={errorCount}
           gameTime={gameTime}
           questions={gameQuestions}
