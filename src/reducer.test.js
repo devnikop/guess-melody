@@ -1,7 +1,11 @@
+import {createAPI} from './api';
+import MockAdapter from 'axios-mock-adapter';
+
 import {
   ActionCreator,
   isArtistAnswerCorrect,
   isGenreAnswerCorrect,
+  Operation,
   reducer,
 } from './reducer';
 
@@ -53,24 +57,34 @@ const mock = {
   ],
 
   initialState: {
-    step: -1,
+    isAuthorizationRequired: false,
     mistakes: 0,
+    questions: [],
+    step: -1,
   },
   stateForReset: {
-    step: 10000,
+    isAuthorizationRequired: false,
     mistakes: 3289,
+    questions: [],
+    step: 10000,
   },
   incrementedStep: {
-    step: 0,
+    isAuthorizationRequired: false,
     mistakes: 0,
+    questions: [],
+    step: 0,
   },
   gameOverTrueState: {
-    step: -1,
+    isAuthorizationRequired: false,
     mistakes: 0,
+    questions: [],
+    step: -1,
   },
   incrementedMistakes: {
-    step: -1,
+    isAuthorizationRequired: false,
     mistakes: 1,
+    questions: [],
+    step: -1,
   },
 };
 
@@ -340,6 +354,26 @@ describe(`Reducer works correctly`, () => {
     const {initialState, stateForReset} = mock;
 
     expect(reducer(stateForReset, {type: `RESET`})).toEqual(initialState);
+  });
+
+  it(`Should make a correct API call to /questions`, () => {
+    const dispatch = jest.fn();
+    const api = createAPI(dispatch);
+    const apiMock = new MockAdapter(api);
+    const questionLoader = Operation.loadQuestions();
+
+    apiMock
+      .onGet(`/questions`)
+      .reply(200, [{fake: true}]);
+
+    return questionLoader(dispatch, jest.fn(), api)
+      .then(() => {
+        expect(dispatch).toHaveBeenCalledTimes(1);
+        expect(dispatch).toHaveBeenCalledWith({
+          type: `LOAD_QUESTIONS`,
+          payload: [{fake: true}],
+        });
+      });
   });
 });
 
