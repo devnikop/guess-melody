@@ -1,5 +1,5 @@
 import axios from 'axios';
-import {ActionCreator} from './reducer';
+import {ActionCreator} from './reducer/user/user';
 
 const createAPI = (dispatch) => {
   const api = axios.create({
@@ -17,7 +17,6 @@ const createAPI = (dispatch) => {
   };
 
   api.interceptors.response.use(onSuccess, onFail);
-
   return api;
 };
 

@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 import React from 'react';
 
-import {ActionCreator} from '../../reducer';
+import {ActionCreator} from '../../reducer/game/game';
 import {GENRE_TYPES} from '../../constants';
 import withActivePlayer from '../with-active-player/with-active-player';
 import withTransformProps from '../with-transform-props/with-transform-props';
@@ -140,10 +140,10 @@ const withChangeScreen = (Component) => {
 
 const mapStateToProps = (state, ownProps) =>
   Object.assign({}, ownProps, {
-    isAuthorizationRequired: state.isAuthorizationRequired,
-    mistakes: state.mistakes,
-    questions: state.questions,
-    step: state.step,
+    isAuthorizationRequired: state.user.isAuthorizationRequired,
+    mistakes: state.game.mistakes,
+    questions: state.data.questions,
+    step: state.game.step,
   });
 
 const mapDispatchToProps = (dispatch) => ({

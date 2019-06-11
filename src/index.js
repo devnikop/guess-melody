@@ -6,7 +6,8 @@ import ReactDOM from 'react-dom';
 import thunk from 'redux-thunk';
 
 import {createAPI} from './api';
-import {Operation, reducer} from './reducer';
+import {Operation} from './reducer/data/data';
+import reducer from './reducer/index';
 import withChangeScreen from './hocs/with-change-screen/with-change-screen';
 
 import App from './components/app/app.jsx';
