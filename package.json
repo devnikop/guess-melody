@@ -38,7 +38,8 @@
     "react-redux": "7.0.3",
     "recompose": "0.30.0",
     "redux": "4.0.1",
-    "redux-thunk": "2.3.0"
+    "redux-thunk": "2.3.0",
+    "reselect": "4.0.0"
   },
   "jest": {
     "collectCoverage": true,
