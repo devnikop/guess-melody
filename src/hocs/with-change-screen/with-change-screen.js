@@ -5,6 +5,10 @@ import React from 'react';
 
 import {ActionCreator} from '../../reducer/game/game';
 import {GENRE_TYPES} from '../../constants';
+import {getQuestions} from '../../reducer/data/selectors';
+import {getMistakes, getStep} from '../../reducer/game/selectors';
+import {getAuthorizationStatus} from '../../reducer/user/selectors';
+
 import withActivePlayer from '../with-active-player/with-active-player';
 import withTransformProps from '../with-transform-props/with-transform-props';
 import withUserAnswer from '../with-user-answer/with-user-answer';
@@ -140,10 +144,10 @@ const withChangeScreen = (Component) => {
 
 const mapStateToProps = (state, ownProps) =>
   Object.assign({}, ownProps, {
-    isAuthorizationRequired: state.user.isAuthorizationRequired,
-    mistakes: state.game.mistakes,
-    questions: state.data.questions,
-    step: state.game.step,
+    isAuthorizationRequired: getAuthorizationStatus(state),
+    mistakes: getMistakes(state),
+    questions: getQuestions(state),
+    step: getStep(state),
   });
 
 const mapDispatchToProps = (dispatch) => ({
