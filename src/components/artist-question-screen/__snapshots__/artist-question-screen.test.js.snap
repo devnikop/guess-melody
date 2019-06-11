@@ -32,7 +32,7 @@ exports[`ArtistQuestionScreen correctly renders 1`] = `
           className="artist__picture"
           src="path.jpg"
         />
-        Пелагея
+        John Snow
       </label>
     </div>
     <div
@@ -55,7 +55,7 @@ exports[`ArtistQuestionScreen correctly renders 1`] = `
           className="artist__picture"
           src="path.jpg"
         />
-        Пелагея
+        Jack Daniels
       </label>
     </div>
     <div
@@ -78,7 +78,7 @@ exports[`ArtistQuestionScreen correctly renders 1`] = `
           className="artist__picture"
           src="path.jpg"
         />
-        Пелагея
+        Jim Beam
       </label>
     </div>
   </form>

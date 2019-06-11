@@ -3,12 +3,18 @@ import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 import React from 'react';
 
-import {ActionCreator} from '../../reducer';
+import {ActionCreator} from '../../reducer/game/game';
+import {GENRE_TYPES} from '../../constants';
+import {getQuestions} from '../../reducer/data/selectors';
+import {getMistakes, getStep} from '../../reducer/game/selectors';
+import {getAuthorizationStatus} from '../../reducer/user/selectors';
+
 import withActivePlayer from '../with-active-player/with-active-player';
 import withTransformProps from '../with-transform-props/with-transform-props';
 import withUserAnswer from '../with-user-answer/with-user-answer';
 
 import {ArtistQuestionScreen} from '../../components/artist-question-screen/artist-question-screen.jsx';
+import AuthorizationScreen from '../../components/authorization-screen/authorization-screen.jsx';
 import {GenreQuestionScreen} from '../../components/genre-question-screen/genre-question-screen.jsx';
 import {WelcomeScreen} from '../../components/welcome-screen/welcome-screen.jsx';
 import LosingScene from '../../components/losing-scene/losing-scene.jsx';
@@ -56,6 +62,10 @@ const withChangeScreen = (Component) => {
       } = this.props;
 
       const question = questions[step];
+
+      if (this.props.isAuthorizationRequired) {
+        return <AuthorizationScreen />;
+      }
 
       if (step >= questions.length) {
         return <VictoryScene
@@ -106,6 +116,7 @@ const withChangeScreen = (Component) => {
 
   WithChangeScreen.propTypes = {
     gameTime: PropTypes.number.isRequired,
+    isAuthorizationRequired: PropTypes.bool.isRequired,
     maxMistakes: PropTypes.number.isRequired,
     mistakes: PropTypes.number.isRequired,
     onReplayClick: PropTypes.func.isRequired,
@@ -113,13 +124,13 @@ const withChangeScreen = (Component) => {
     onWelcomeScreenClick: PropTypes.func.isRequired,
     questions: PropTypes.arrayOf(PropTypes.shape({
       type: PropTypes.oneOf([`genre`, `artist`]).isRequired,
-      genre: PropTypes.oneOf([`rock`, `pop`, `jazz`]),
+      genre: PropTypes.oneOf(GENRE_TYPES),
       song: PropTypes.shape({
         artist: PropTypes.string,
         src: PropTypes.string,
       }),
       answers: PropTypes.arrayOf(PropTypes.shape({
-        genre: PropTypes.oneOf([`rock`, `pop`, `jazz`]),
+        genre: PropTypes.oneOf(GENRE_TYPES),
         src: PropTypes.string,
         picture: PropTypes.string,
         artist: PropTypes.string,
@@ -133,8 +144,10 @@ const withChangeScreen = (Component) => {
 
 const mapStateToProps = (state, ownProps) =>
   Object.assign({}, ownProps, {
-    step: state.step,
-    mistakes: state.mistakes,
+    isAuthorizationRequired: getAuthorizationStatus(state),
+    mistakes: getMistakes(state),
+    questions: getQuestions(state),
+    step: getStep(state),
   });
 
 const mapDispatchToProps = (dispatch) => ({

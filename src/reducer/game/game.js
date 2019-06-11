@@ -4,8 +4,8 @@ const initialState = {
 };
 
 const ACTION_TYPE = new Map([
-  [`incrementStep`, `INCREMENT_STEP`],
   [`incrementMistake`, `INCREMENT_MISTAKES`],
+  [`incrementStep`, `INCREMENT_STEP`],
   [`reset`, `RESET`],
 ]);
 
@@ -13,10 +13,6 @@ const ActionCreator = {
   incrementStep: () => ({
     type: ACTION_TYPE.get(`incrementStep`),
     payload: 1,
-  }),
-
-  restart: () => ({
-    type: ACTION_TYPE.get(`reset`),
   }),
 
   incrementMistake: (userAnswer, question) => {
@@ -36,6 +32,10 @@ const ActionCreator = {
       payload: answerIsCorrect ? 0 : 1,
     };
   },
+
+  restart: () => ({
+    type: ACTION_TYPE.get(`reset`),
+  }),
 };
 
 const isArtistAnswerCorrect = (userAnswer, question) => {
@@ -68,7 +68,7 @@ const reducer = (state = initialState, action) => {
 
 export {
   ActionCreator,
-  reducer,
   isArtistAnswerCorrect,
-  isGenreAnswerCorrect
+  isGenreAnswerCorrect,
+  reducer,
 };

@@ -3,7 +3,7 @@ import {
   isArtistAnswerCorrect,
   isGenreAnswerCorrect,
   reducer,
-} from './reducer';
+} from './game';
 
 const mock = {
   questions: [
@@ -53,24 +53,32 @@ const mock = {
   ],
 
   initialState: {
-    step: -1,
+    isAuthorizationRequired: false,
     mistakes: 0,
+    questions: [],
+    step: -1,
+  },
+  initialGameState: {
+    mistakes: 0,
+    step: -1,
   },
   stateForReset: {
-    step: 10000,
+    isAuthorizationRequired: true,
     mistakes: 3289,
+    questions: [],
+    step: 10000,
   },
   incrementedStep: {
+    isAuthorizationRequired: false,
+    mistakes: 0,
+    questions: [],
     step: 0,
-    mistakes: 0,
-  },
-  gameOverTrueState: {
-    step: -1,
-    mistakes: 0,
   },
   incrementedMistakes: {
-    step: -1,
+    isAuthorizationRequired: false,
     mistakes: 1,
+    questions: [],
+    step: -1,
   },
 };
 
@@ -337,10 +345,8 @@ describe(`Reducer works correctly`, () => {
   });
 
   it(`Should correctly reset application state`, () => {
-    const {initialState, stateForReset} = mock;
+    const {initialGameState, stateForReset} = mock;
 
-    expect(reducer(stateForReset, {type: `RESET`})).toEqual(initialState);
+    expect(reducer(stateForReset, {type: `RESET`})).toEqual(initialGameState);
   });
 });
-
-

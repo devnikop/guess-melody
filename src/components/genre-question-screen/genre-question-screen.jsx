@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import {GENRE_TYPES} from '../../constants';
+
 export class GenreQuestionScreen extends React.PureComponent {
   constructor(props) {
     super(props);
@@ -47,9 +49,9 @@ export class GenreQuestionScreen extends React.PureComponent {
 GenreQuestionScreen.propTypes = {
   question: PropTypes.shape({
     type: PropTypes.oneOf([`genre`]).isRequired,
-    genre: PropTypes.oneOf([`rock`, `pop`, `jazz`]).isRequired,
+    genre: PropTypes.oneOf(GENRE_TYPES).isRequired,
     answers: PropTypes.arrayOf(PropTypes.shape({
-      genre: PropTypes.oneOf([`rock`, `pop`, `jazz`]).isRequired,
+      genre: PropTypes.oneOf(GENRE_TYPES).isRequired,
       src: PropTypes.string.isRequired,
     })).isRequired,
   }),
