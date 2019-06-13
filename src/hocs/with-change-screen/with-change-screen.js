@@ -10,6 +10,7 @@ import {getMistakes, getStep} from '../../reducer/game/selectors';
 import {getAuthorizationStatus} from '../../reducer/user/selectors';
 
 import withActivePlayer from '../with-active-player/with-active-player';
+import withAuthorizationScreen from '../with-authorization-screen/with-authorization-screen';
 import withTransformProps from '../with-transform-props/with-transform-props';
 import withUserAnswer from '../with-user-answer/with-user-answer';
 
@@ -35,6 +36,8 @@ const GenreQuestionScreenWrapped = withUserAnswer(
     withActivePlayer(
         withTransformProps(transformPlayerToAnswer)(GenreQuestionScreen))
 );
+
+const AuthorizationScreenWrapped = withAuthorizationScreen(AuthorizationScreen);
 
 const withChangeScreen = (Component) => {
   class WithChangeScreen extends React.PureComponent {
@@ -64,7 +67,7 @@ const withChangeScreen = (Component) => {
       const question = questions[step];
 
       if (this.props.isAuthorizationRequired) {
-        return <AuthorizationScreen />;
+        return <AuthorizationScreenWrapped />;
       }
 
       if (step >= questions.length) {
