@@ -1,3 +1,4 @@
+import {BrowserRouter} from 'react-router-dom';
 import {compose} from 'recompose';
 import {createStore, applyMiddleware} from 'redux';
 import {Provider} from 'react-redux';
@@ -34,10 +35,12 @@ const init = () => {
 
   ReactDOM.render(
       <Provider store={store}>
-        <AppWrapped
-          maxMistakes={errorCount}
-          gameTime={gameTime}
-        />
+        <BrowserRouter>
+          <AppWrapped
+            maxMistakes={errorCount}
+            gameTime={gameTime}
+          />
+        </BrowserRouter>
       </Provider>,
       document.querySelector(`.main`)
   );
