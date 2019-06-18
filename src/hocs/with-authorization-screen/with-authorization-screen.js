@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import {createAPI} from '../../api';
 import React from 'react';
 import {ActionCreator} from '../../reducer/user/user';
+import {Redirect} from 'react-router-dom';
 
 const withAuthorizationScreen = (Component) => {
   class WithAuthorizationScreen extends React.PureComponent {
@@ -54,6 +55,7 @@ const mapDispatchToProps = (dispatch) => ({
         if (response.data) {
           dispatch(ActionCreator.login(response.data));
           dispatch(ActionCreator.requiredAuthorization(false));
+          history.pushState(null, null, `/`);
         }
       });
   }

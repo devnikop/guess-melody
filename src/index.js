@@ -6,14 +6,15 @@ import ReactDOM from 'react-dom';
 import thunk from 'redux-thunk';
 
 import {createAPI} from './api';
-import {Operation} from './reducer/data/data';
+import {Operation as DataOperation} from './reducer/data/data';
+import {Operation as UserOperation} from './reducer/user/user';
 import reducer from './reducer/index';
 import withChangeScreen from './hocs/with-change-screen/with-change-screen';
 
 import App from './components/app/app.jsx';
 
 const gameSettings = {
-  errorCount: 3,
+  errorCount: 8,
   gameTime: 5,
 };
 
@@ -21,7 +22,8 @@ const AppWrapped = withChangeScreen(App);
 
 const init = () => {
   const {errorCount, gameTime} = gameSettings;
-  const api = createAPI((...args) => store.dispatch(...args));
+  const api = createAPI(() =>
+    history.pushState(null, null, `/login`));
   const store = createStore(
       reducer,
       compose(
@@ -30,7 +32,8 @@ const init = () => {
       )
   );
 
-  store.dispatch(Operation.loadQuestions());
+  store.dispatch(DataOperation.loadQuestions());
+  store.dispatch(UserOperation.checkAuth());
 
   ReactDOM.render(
       <Provider store={store}>

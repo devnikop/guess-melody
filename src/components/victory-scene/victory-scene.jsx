@@ -1,5 +1,7 @@
-import React from 'react';
+import {Link} from 'react-router-dom';
 import PropTypes from 'prop-types';
+import React from 'react';
+
 
 const VictoryScene = (props) => {
   const {
@@ -18,12 +20,12 @@ const VictoryScene = (props) => {
     <h2 className="result__title">Вы настоящий меломан!</h2>
     <p className="result__total">За 3 минуты и 25 секунд вы набрали 12 баллов (8 быстрых), совершив {mistakes} ошибки</p>
     <p className="result__text">Вы заняли 2 место из 10. Это лучше чем у 80% игроков</p>
-    <button
+    <Link
       className="replay"
-      type="button"
+      to="/"
       onClick={handleButtonClick}>
         Сыграть ещё раз
-    </button>
+    </Link>
   </section>;
 };
 

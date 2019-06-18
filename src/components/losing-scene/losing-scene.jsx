@@ -1,3 +1,4 @@
+import {Link} from 'react-router-dom';
 import React from 'react';
 import PropTypes from 'prop-types';
 
@@ -16,12 +17,13 @@ const LosingScene = (props) => {
     </div>
     <h2 className="result__title">Какая жалость!</h2>
     <p className="result__total result__total--fail">У вас закончились все попытки. Ничего, повезёт в следующий раз!</p>
-    <button
+    <Link
       className="replay"
-      type="button"
+      to="/"
       onClick={handleButtonClick}>
         Попробовать ещё раз
-    </button>
+    </Link>
+
   </section>;
 };
 
