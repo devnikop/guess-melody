@@ -1,3 +1,4 @@
+import {BrowserRouter, Switch, Route, Redirect} from 'react-router-dom';
 import {compose} from 'recompose';
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
@@ -48,17 +49,36 @@ const withChangeScreen = (Component) => {
     }
 
     render() {
-      return <Component
-        {...this.props}
-        renderScreen={this._getScreen}
-      />;
+      const {
+        mistakes,
+        onReplayClick,
+      } = this.props;
+
+      return <BrowserRouter>
+        <Switch>
+          <Route path="/" exact
+            render={() => <Component
+              {...this.props}
+              renderScreen={this._getScreen}
+            />}
+          />
+          <Route path="/win" render={() => <VictoryScene
+            mistakes={mistakes}
+            onClick={onReplayClick}
+          />} />
+          <Route path="/lose" render={() => <LosingScene
+            onClick={onReplayClick}
+          />} />
+          <Route path="/login" component={AuthorizationScreenWrapped} />
+        </Switch>
+      </BrowserRouter>;
     }
 
     _getScreen() {
       const {
+        isAuthorizationRequired,
         maxMistakes,
         mistakes,
-        onReplayClick,
         onUserAnswer,
         questions,
         step,
@@ -66,16 +86,17 @@ const withChangeScreen = (Component) => {
 
       const question = questions[step];
 
-      if (this.props.isAuthorizationRequired) {
-        return <AuthorizationScreenWrapped />;
+      if (step >= questions.length && isAuthorizationRequired) {
+        return <Redirect to="/login" />;
+      } else if (step >= questions.length) {
+        return <Redirect to="/win" />;
       }
 
-      if (step >= questions.length) {
-        return <VictoryScene
-          mistakes={mistakes}
-          onClick={() => onReplayClick()}
-        />;
-      } else if (!question) {
+      if (mistakes >= maxMistakes) {
+        return <Redirect to="/lose" />;
+      }
+
+      if (step === -1) {
         const {
           gameTime,
           onWelcomeScreenClick,
@@ -85,12 +106,6 @@ const withChangeScreen = (Component) => {
           time={gameTime}
           errorCount={maxMistakes}
           onClick={onWelcomeScreenClick}
-        />;
-      }
-
-      if (mistakes >= maxMistakes) {
-        return <LosingScene
-          onClick={() => onReplayClick()}
         />;
       }
 

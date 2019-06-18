@@ -22,6 +22,20 @@ const ActionCreator = {
   }),
 };
 
+const Operation = {
+  checkAuth: () => {
+    return (dispatch, _getState, api) => {
+      return api
+        .get(`/login`)
+        .then((response) => {
+          if (response.status === 200) {
+            dispatch(ActionCreator.requiredAuthorization(true));
+          }
+        });
+    };
+  }
+};
+
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case ACTION_TYPE.get(`login`):
@@ -39,5 +53,6 @@ const reducer = (state = initialState, action) => {
 
 export {
   ActionCreator,
+  Operation,
   reducer,
 };
