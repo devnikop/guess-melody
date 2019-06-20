@@ -1,32 +1,36 @@
 import * as React from 'react';
 import {shallow} from 'enzyme';
 
-import {GenreQuestionScreen} from './genre-question-screen.jsx';
+import {GenreQuestionScreen} from './genre-question-screen';
+import {
+  GenreType,
+  Type,
+} from '../../types';
 
 const mock = {
   userAnswer: [false, false, false, false],
   question: {
-    type: `genre`,
-    genre: `rock`,
+    type: Type.GENRE,
+    genre: GenreType.ROCK,
     answers: [
       {
-        src: `path`,
-        genre: `rock`,
+        src: `https://upload.wikimedia.org/wikipedia/commons/1/1f/Uganda_flag_and_national_anthem_-_Oh_Uganda_Land_o.ogg`,
+        genre: GenreType.ROCK,
       },
       {
-        src: `path`,
-        genre: `pop`,
+        src: `https://upload.wikimedia.org/wikipedia/commons/1/1f/Uganda_flag_and_national_anthem_-_Oh_Uganda_Land_o.ogg`,
+        genre: GenreType.POP,
       },
       {
-        src: `path`,
-        genre: `jazz`,
+        src: `https://upload.wikimedia.org/wikipedia/commons/1/1f/Uganda_flag_and_national_anthem_-_Oh_Uganda_Land_o.ogg`,
+        genre: GenreType.JAZZ,
       },
       {
-        src: `path`,
-        genre: `rock`,
+        src: `https://upload.wikimedia.org/wikipedia/commons/1/1f/Uganda_flag_and_national_anthem_-_Oh_Uganda_Land_o.ogg`,
+        genre: GenreType.ROCK,
       },
     ],
-  },
+  }
 };
 
 HTMLMediaElement.prototype.pause = () => {};

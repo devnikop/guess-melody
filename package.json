@@ -4,7 +4,7 @@
   "private": true,
   "description": "Учебный проект «Угадай мелодию» от HTML Academy",
   "scripts": {
-    "eslint": "eslint src/**/*.js src/**/*.jsx",
+    "eslint": "eslint --ext .js,.jsx src/",
     "test": "npm run eslint && jest",
     "build": "webpack --mode development",
     "start": "webpack-dev-server"
@@ -46,11 +46,5 @@
     "redux": "4.0.1",
     "redux-thunk": "2.3.0",
     "reselect": "4.0.0"
-  },
-  "jest": {
-    "collectCoverage": true,
-    "setupFilesAfterEnv": [
-      "<rootDir>src/setupTests.js"
-    ]
   }
 }

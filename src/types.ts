@@ -46,6 +46,7 @@ type RenderAnswer = (answer: Answer, currentItem: number) =>
   React.ReactElement;
 
 export {
+  GenreType,
   QuestionArtist,
   QuestionArtistAnswer,
   QuestionArtistSong,

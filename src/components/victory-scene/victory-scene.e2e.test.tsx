@@ -1,7 +1,7 @@
 import * as React from 'react';
 import {shallow} from 'enzyme';
 
-import VictoryScene from './victory-scene.jsx';
+import VictoryScene from './victory-scene';
 
 it(`Click on button should call onClick`, () => {
   const onClickMock = jest.fn();

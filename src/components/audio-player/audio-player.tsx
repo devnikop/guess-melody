@@ -12,8 +12,8 @@ export class AudioPlayer extends React.PureComponent<Props> {
     const {
       isLoading,
       isPlaying,
-      renderAudio,
       onPlayButtonClick,
+      renderAudio,
     } = this.props;
 
     return <div className="game__track">

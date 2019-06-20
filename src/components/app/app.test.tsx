@@ -1,7 +1,7 @@
 import * as React from 'react';
 import * as renderer from 'react-test-renderer';
 
-import App from './app.jsx';
+import App from './app';
 
 it(`App correctly renders first screen`, () => {
   const tree = renderer

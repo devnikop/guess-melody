@@ -1,11 +1,12 @@
 import * as React from 'react';
 import {shallow} from 'enzyme';
 
-import {ArtistQuestionScreen} from './artist-question-screen.jsx';
+import {ArtistQuestionScreen} from './artist-question-screen';
+import {Type} from '../../types';
 
 const mock = {
   question: {
-    type: `artist`,
+    type: Type.ARTIST,
     song: {
       artist: ``,
       src: ``

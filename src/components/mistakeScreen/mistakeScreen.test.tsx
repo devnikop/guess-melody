@@ -1,7 +1,7 @@
 import * as React from 'react';
 import * as renderer from 'react-test-renderer';
 
-import MistakeScreen from './mistakeScreen.jsx';
+import MistakeScreen from './mistakeScreen';
 
 const mock = {
   mistakes: 2,
