@@ -1,12 +1,11 @@
-import React from 'react';
+import * as React from 'react';
 import {shallow} from 'enzyme';
 
-import VictoryScene from './victory-scene.jsx';
+import LosingScene from './losing-scene.jsx';
 
 it(`Click on button should call onClick`, () => {
   const onClickMock = jest.fn();
-  const screen = shallow(<VictoryScene
-    mistakes={1}
+  const screen = shallow(<LosingScene
     onClick={onClickMock}
   />);
 
