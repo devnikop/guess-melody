@@ -1,7 +1,18 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import * as React from 'react';
 
-export class ArtistQuestionScreen extends React.PureComponent {
+import {
+  QuestionArtist,
+  QuestionArtistAnswer,
+  RenderAnswer,
+} from '../../types'
+
+interface Props {
+  question: QuestionArtist,
+  onAnswer: (answer: QuestionArtistAnswer) => void,
+  renderAnswer: RenderAnswer,
+}
+
+export class ArtistQuestionScreen extends React.PureComponent<Props, null> {
   render() {
     const {
       question,
@@ -33,19 +44,3 @@ export class ArtistQuestionScreen extends React.PureComponent {
     </section>;
   }
 }
-
-ArtistQuestionScreen.propTypes = {
-  question: PropTypes.shape({
-    answers: PropTypes.arrayOf(PropTypes.shape({
-      artist: PropTypes.string.isRequired,
-      picture: PropTypes.string.isRequired,
-    })).isRequired,
-    song: PropTypes.shape({
-      artist: PropTypes.string.isRequired,
-      src: PropTypes.string.isRequired,
-    }).isRequired,
-    type: PropTypes.oneOf([`artist`]).isRequired,
-  }).isRequired,
-  onAnswer: PropTypes.func,
-  renderAnswer: PropTypes.func.isRequired,
-};

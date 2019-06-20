@@ -1,10 +1,27 @@
-import React, {PureComponent} from 'react';
-import PropTypes from 'prop-types';
+import * as React from 'react';
 
-import {GENRE_TYPES} from '../../constants';
+import {QuestionGenre} from '../../types';
+import {Subtract} from 'utility-types';
+
+interface Props {
+  question: QuestionGenre,
+  onAnswer: (answers: boolean[]) => void,
+}
+
+interface State {
+  userAnswer: boolean[],
+}
+
+interface InjectedProps {
+  userAnswer: boolean[],
+  onChange: (i: number) => void,
+  onAnswer: (answers: boolean[]) => void,
+}
 
 const withUserAnswer = (Component) => {
-  class WithUserAnswer extends PureComponent {
+  type P = Props & React.ComponentProps<typeof Component>;
+
+  class WithUserAnswer extends React.PureComponent<Subtract<P, InjectedProps>, State> {
     constructor(props) {
       super(props);
 
@@ -37,18 +54,6 @@ const withUserAnswer = (Component) => {
       this.props.onAnswer(this.state.userAnswer);
     }
   }
-
-  WithUserAnswer.propTypes = {
-    question: PropTypes.shape({
-      type: PropTypes.oneOf([`genre`]).isRequired,
-      genre: PropTypes.oneOf(GENRE_TYPES).isRequired,
-      answers: PropTypes.arrayOf(PropTypes.shape({
-        genre: PropTypes.oneOf(GENRE_TYPES).isRequired,
-        src: PropTypes.string.isRequired,
-      })).isRequired,
-    }),
-    onAnswer: PropTypes.func.isRequired,
-  };
 
   return WithUserAnswer;
 };

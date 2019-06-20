@@ -1,7 +1,10 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import * as React from 'react';
 
-const MistakeScreen = (props) => {
+interface Props {
+  mistakes: number,
+}
+
+const MistakeScreen: React.FunctionComponent<Props> = (props) => {
   const {mistakes} = props;
 
   return (<div className="game__mistakes">
@@ -9,10 +12,6 @@ const MistakeScreen = (props) => {
       <div className="wrong" key={`mistake${i}`}></div>
     )}
   </div>);
-};
-
-MistakeScreen.propTypes = {
-  mistakes: PropTypes.number.isRequired
 };
 
 export default MistakeScreen;

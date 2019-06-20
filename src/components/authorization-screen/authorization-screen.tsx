@@ -1,10 +1,14 @@
-import React from "react";
-import PropTypes from 'prop-types';
+import * as React from "react";
 
-const AuthorizationScreen = (props) => {
+interface Props {
+  onInputChange,
+  onSubmit: () => void,
+}
+
+const AuthorizationScreen: React.FunctionComponent<Props> = (props) => {
   const {
     onInputChange,
-    onSubmit
+    onSubmit,
   } = props;
 
   return <section className="login">
@@ -28,9 +32,9 @@ const AuthorizationScreen = (props) => {
   </section>;
 };
 
-AuthorizationScreen.propTypes = {
-  onInputChange: PropTypes.func.isRequired,
-  onSubmit: PropTypes.func.isRequired,
-};
+// AuthorizationScreen.propTypes = {
+//   onInputChange: PropTypes.func.isRequired,
+//   onSubmit: PropTypes.func.isRequired,
+// };
 
 export default AuthorizationScreen;

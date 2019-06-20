@@ -1,13 +1,21 @@
 import {compose} from 'recompose';
 import {connect} from 'react-redux';
-import PropTypes from 'prop-types';
 import {createAPI} from '../../api';
-import React from 'react';
+import * as React from 'react';
+
 import {ActionCreator} from '../../reducer/user/user';
-import {Redirect} from 'react-router-dom';
+
+interface Props {
+  login: (state: any) => void,
+}
+
+interface State {
+  email: any,
+  password: any,
+}
 
 const withAuthorizationScreen = (Component) => {
-  class WithAuthorizationScreen extends React.PureComponent {
+  class WithAuthorizationScreen extends React.PureComponent<Props, State> {
     constructor(props) {
       super(props);
 
@@ -31,7 +39,7 @@ const withAuthorizationScreen = (Component) => {
     _handleInputChange(evt, keyName) {
       this.setState({
         [keyName]: evt.target.value
-      });
+      } as Pick<State, keyof State>);
     }
 
     _handleFormSubmit(evt) {
@@ -39,10 +47,6 @@ const withAuthorizationScreen = (Component) => {
       this.props.login(this.state);
     }
   }
-
-  WithAuthorizationScreen.propTypes = {
-    login: PropTypes.func.isRequired,
-  };
 
   return WithAuthorizationScreen;
 };

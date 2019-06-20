@@ -1,14 +1,14 @@
-import PropTypes from 'prop-types';
-import React from 'react';
+import * as React from 'react';
 
-import MistakeScreen from '../mistakeScreen/mistakeScreen.jsx';
+import {Type} from '../../types';
+import MistakeScreen from '../mistakeScreen/mistakeScreen';
 
-const Type = {
-  ARTIST: `game--artist`,
-  GENRE: `game--genre`,
-};
+interface Props {
+  renderScreen: () => React.ReactElement,
+  mistakes: number,
+}
 
-class App extends React.PureComponent {
+class App extends React.PureComponent<Props> {
   render() {
     const {
       renderScreen,
@@ -27,7 +27,7 @@ class App extends React.PureComponent {
             style={{filter: `url(#blur)`, transform: `rotate(-90deg) scaleY(-1)`, transformOrigin: `center`}} />
         </svg>
 
-        <div className="timer__value" xmlns="http://www.w3.org/1999/xhtml">
+        <div className="timer__value">
           <span className="timer__mins">05</span>
           <span className="timer__dots">:</span>
           <span className="timer__secs">00</span>
@@ -40,10 +40,5 @@ class App extends React.PureComponent {
     </section>;
   }
 }
-
-App.propTypes = {
-  mistakes: PropTypes.number.isRequired,
-  renderScreen: PropTypes.func.isRequired,
-};
 
 export default App;

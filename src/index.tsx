@@ -1,8 +1,8 @@
 import {compose} from 'recompose';
 import {createStore, applyMiddleware} from 'redux';
 import {Provider} from 'react-redux';
-import React from 'react';
-import ReactDOM from 'react-dom';
+import * as React from 'react';
+import * as ReactDOM from 'react-dom';
 import thunk from 'redux-thunk';
 
 import {createAPI} from './api';
@@ -11,7 +11,9 @@ import {Operation as UserOperation} from './reducer/user/user';
 import reducer from './reducer/index';
 import withChangeScreen from './hocs/with-change-screen/with-change-screen';
 
-import App from './components/app/app.jsx';
+import App from './components/app/app';
+
+declare const __REDUX_DEVTOOLS_EXTENSION__: () => any;
 
 const gameSettings = {
   errorCount: 8,
@@ -28,7 +30,7 @@ const init = () => {
       reducer,
       compose(
           applyMiddleware(thunk.withExtraArgument(api)),
-          window.__REDUX_DEVTOOLS_EXTENSION__ ? window.__REDUX_DEVTOOLS_EXTENSION__() : (a) => a
+          __REDUX_DEVTOOLS_EXTENSION__ ? __REDUX_DEVTOOLS_EXTENSION__() : (a) => a
       )
   );
 

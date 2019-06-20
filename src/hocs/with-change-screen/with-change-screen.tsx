@@ -1,11 +1,9 @@
 import {BrowserRouter, Switch, Route, Redirect} from 'react-router-dom';
 import {compose} from 'recompose';
 import {connect} from 'react-redux';
-import PropTypes from 'prop-types';
-import React from 'react';
+import * as React from 'react';
 
 import {ActionCreator} from '../../reducer/game/game';
-import {GENRE_TYPES} from '../../constants';
 import {getQuestions} from '../../reducer/data/selectors';
 import {getMistakes, getStep} from '../../reducer/game/selectors';
 import {getAuthorizationStatus} from '../../reducer/user/selectors';
@@ -15,12 +13,31 @@ import withAuthorizationScreen from '../with-authorization-screen/with-authoriza
 import withTransformProps from '../with-transform-props/with-transform-props';
 import withUserAnswer from '../with-user-answer/with-user-answer';
 
-import {ArtistQuestionScreen} from '../../components/artist-question-screen/artist-question-screen.jsx';
-import AuthorizationScreen from '../../components/authorization-screen/authorization-screen.jsx';
-import {GenreQuestionScreen} from '../../components/genre-question-screen/genre-question-screen.jsx';
-import {WelcomeScreen} from '../../components/welcome-screen/welcome-screen.jsx';
-import LosingScene from '../../components/losing-scene/losing-scene.jsx';
-import VictoryScene from '../../components/victory-scene/victory-scene.jsx';
+import {ArtistQuestionScreen} from '../../components/artist-question-screen/artist-question-screen';
+import AuthorizationScreen from '../../components/authorization-screen/authorization-screen';
+import {GenreQuestionScreen} from '../../components/genre-question-screen/genre-question-screen';
+import {WelcomeScreen} from '../../components/welcome-screen/welcome-screen';
+import LosingScene from '../../components/losing-scene/losing-scene';
+import VictoryScene from '../../components/victory-scene/victory-scene';
+
+import {
+  QuestionArtist,
+  QuestionGenre,
+} from '../../types';
+
+interface Props {
+  gameTime: number,
+  isAuthorizationRequired: boolean,
+  maxMistakes: number,
+  mistakes: number,
+  onReplayClick: () => void,
+  onUserAnswer: (userAnswer: boolean[], question: Question) => void,
+  onWelcomeScreenClick: () => void,
+  questions: Question[],
+  step: number,
+}
+
+type Question = QuestionArtist | QuestionGenre;
 
 const transformPlayerToAnswer = (props) => {
   const newProps = Object.assign({}, props, {
@@ -41,7 +58,7 @@ const GenreQuestionScreenWrapped = withUserAnswer(
 const AuthorizationScreenWrapped = withAuthorizationScreen(AuthorizationScreen);
 
 const withChangeScreen = (Component) => {
-  class WithChangeScreen extends React.PureComponent {
+  class WithChangeScreen extends React.PureComponent<Props> {
     constructor(props) {
       super(props);
 
@@ -131,31 +148,6 @@ const withChangeScreen = (Component) => {
       return null;
     }
   }
-
-  WithChangeScreen.propTypes = {
-    gameTime: PropTypes.number.isRequired,
-    isAuthorizationRequired: PropTypes.bool.isRequired,
-    maxMistakes: PropTypes.number.isRequired,
-    mistakes: PropTypes.number.isRequired,
-    onReplayClick: PropTypes.func.isRequired,
-    onUserAnswer: PropTypes.func.isRequired,
-    onWelcomeScreenClick: PropTypes.func.isRequired,
-    questions: PropTypes.arrayOf(PropTypes.shape({
-      type: PropTypes.oneOf([`genre`, `artist`]).isRequired,
-      genre: PropTypes.oneOf(GENRE_TYPES),
-      song: PropTypes.shape({
-        artist: PropTypes.string,
-        src: PropTypes.string,
-      }),
-      answers: PropTypes.arrayOf(PropTypes.shape({
-        genre: PropTypes.oneOf(GENRE_TYPES),
-        src: PropTypes.string,
-        picture: PropTypes.string,
-        artist: PropTypes.string,
-      })).isRequired,
-    })),
-    step: PropTypes.number.isRequired,
-  };
 
   return WithChangeScreen;
 };

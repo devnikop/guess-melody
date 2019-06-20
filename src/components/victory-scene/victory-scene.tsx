@@ -1,12 +1,15 @@
 import {Link} from 'react-router-dom';
-import PropTypes from 'prop-types';
-import React from 'react';
+import * as React from 'react';
 
+interface Props {
+  mistakes: number,
+  onClick: () => void,
+}
 
-const VictoryScene = (props) => {
+const VictoryScene: React.FunctionComponent<Props> = (props) => {
   const {
     mistakes,
-    onClick
+    onClick,
   } = props;
 
   const handleButtonClick = () => {
@@ -27,11 +30,6 @@ const VictoryScene = (props) => {
         Сыграть ещё раз
     </Link>
   </section>;
-};
-
-VictoryScene.propTypes = {
-  mistakes: PropTypes.number.isRequired,
-  onClick: PropTypes.func.isRequired,
 };
 
 export default VictoryScene;

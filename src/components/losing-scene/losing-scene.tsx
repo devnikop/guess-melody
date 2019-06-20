@@ -1,8 +1,11 @@
 import {Link} from 'react-router-dom';
-import React from 'react';
-import PropTypes from 'prop-types';
+import * as React from 'react';
 
-const LosingScene = (props) => {
+interface Props {
+  onClick: () => void,
+}
+
+const LosingScene: React.FunctionComponent<Props> = (props) => {
   const {
     onClick
   } = props;
@@ -25,10 +28,6 @@ const LosingScene = (props) => {
     </Link>
 
   </section>;
-};
-
-LosingScene.propTypes = {
-  onClick: PropTypes.func.isRequired,
 };
 
 export default LosingScene;

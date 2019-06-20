@@ -1,9 +1,19 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import * as React from 'react';
 
-import {GENRE_TYPES} from '../../constants';
+import {
+  QuestionGenre,
+  RenderAnswer,
+} from '../../types';
 
-export class GenreQuestionScreen extends React.PureComponent {
+interface Props {
+  onAnswer: () => void,
+  onChange: (id: number) => void,
+  question: QuestionGenre,
+  renderAnswer: RenderAnswer,
+  userAnswer: boolean[],
+}
+
+export class GenreQuestionScreen extends React.PureComponent<Props> {
   constructor(props) {
     super(props);
 
@@ -12,10 +22,10 @@ export class GenreQuestionScreen extends React.PureComponent {
 
   render() {
     const {
-      question,
-      userAnswer,
       onChange,
+      question,
       renderAnswer,
+      userAnswer,
     } = this.props;
 
     return <section className="game__screen">
@@ -45,18 +55,3 @@ export class GenreQuestionScreen extends React.PureComponent {
     this.props.onAnswer();
   }
 }
-
-GenreQuestionScreen.propTypes = {
-  question: PropTypes.shape({
-    type: PropTypes.oneOf([`genre`]).isRequired,
-    genre: PropTypes.oneOf(GENRE_TYPES).isRequired,
-    answers: PropTypes.arrayOf(PropTypes.shape({
-      genre: PropTypes.oneOf(GENRE_TYPES).isRequired,
-      src: PropTypes.string.isRequired,
-    })).isRequired,
-  }),
-  onAnswer: PropTypes.func.isRequired,
-  onChange: PropTypes.func.isRequired,
-  renderAnswer: PropTypes.func.isRequired,
-  userAnswer: PropTypes.arrayOf(PropTypes.bool).isRequired,
-};
