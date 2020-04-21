@@ -12,7 +12,7 @@ const WelcomeScreen = ({ errorCount, onClick, time }) => {
           height="83"
         />
       </div>
-      <button className="welcome__button">
+      <button className="welcome__button" onClick={onClick}>
         <span className="visually-hidden">Начать игру</span>
       </button>
       <h2 className="welcome__rules-title">Правила игры</h2>
