@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`welcome-screen snapshot 1`] = `
+exports[`snapshot 1`] = `
 <section
   className="welcome"
 >

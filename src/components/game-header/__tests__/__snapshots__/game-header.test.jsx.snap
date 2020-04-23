@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`game-header snapshot 1`] = `
+exports[`snapshot 1`] = `
 <header
   className="game__header"
 >
