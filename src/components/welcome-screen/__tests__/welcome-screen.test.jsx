@@ -3,9 +3,11 @@ import renderer from "react-test-renderer";
 
 import WelcomeScreen from "../welcome-screen.jsx";
 
-it(`Welcome screen renders correctly`, () => {
+it(`snapshot`, () => {
   const tree = renderer
-    .create(<WelcomeScreen time={0} errorCount={0} onClick={jest.fn()} />)
+    .create(
+      <WelcomeScreen errorCount={0} onStartButtonClick={jest.fn()} time={0} />
+    )
     .toJSON();
 
   expect(tree).toMatchSnapshot();

@@ -1,0 +1,75 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`snapshot 1`] = `
+<section
+  className="game game--artist"
+>
+  <section
+    className="game__screen"
+  >
+    <h2
+      className="game__title"
+    >
+      Кто исполняет эту песню?
+    </h2>
+    <div
+      className="game__track"
+    >
+      <button
+        className="track__button track__button--play"
+        type="button"
+      />
+      <audio />
+    </div>
+    <form
+      className="game__artist"
+      onChange={[MockFunction]}
+    >
+      <div
+        className="artist"
+      >
+        <input
+          className="artist__input visually-hidden"
+          id="answer-0"
+          name="answer"
+          type="radio"
+          value="answer-0"
+        />
+        <label
+          className="artist__name"
+          htmlFor="answer-0"
+        >
+          <img
+            alt="John"
+            className="artist__picture"
+            src="source"
+          />
+          John
+        </label>
+      </div>
+      <div
+        className="artist"
+      >
+        <input
+          className="artist__input visually-hidden"
+          id="answer-1"
+          name="answer"
+          type="radio"
+          value="answer-1"
+        />
+        <label
+          className="artist__name"
+          htmlFor="answer-1"
+        >
+          <img
+            alt="Jim"
+            className="artist__picture"
+            src="source2"
+          />
+          Jim
+        </label>
+      </div>
+    </form>
+  </section>
+</section>
+`;
