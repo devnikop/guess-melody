@@ -20,12 +20,20 @@ const mock = {
   },
 };
 
+const createNodeMock = (element) => {
+  if (element.type === `audio`) {
+    return {};
+  }
+};
+
 it(`snapshot`, () => {
   const { question } = mock;
 
-  const tree = renderer
-    .create(<GenreScreen question={question} onAnswer={jest.fn()} />)
-    .toJSON();
-
-  expect(tree).toMatchSnapshot();
+  const tree = renderer.create(
+    <GenreScreen question={question} onAnswer={jest.fn()} />,
+    {
+      createNodeMock,
+    }
+  );
+  expect(tree.toJSON()).toMatchSnapshot();
 });

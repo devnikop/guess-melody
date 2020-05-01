@@ -4,7 +4,7 @@ import renderer from "react-test-renderer";
 import GameHeader from "../game-header.jsx";
 
 it(`snapshot`, () => {
-  const tree = renderer.create(<GameHeader />).toJSON();
+  const tree = renderer.create(<GameHeader />);
 
-  expect(tree).toMatchSnapshot();
+  expect(tree.toJSON()).toMatchSnapshot();
 });

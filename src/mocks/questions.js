@@ -3,19 +3,19 @@ export default [
     answers: [
       {
         genre: `rock`,
-        src: `https://upload.wikimedia.org/wikipedia/commons/1/1f/Uganda_flag_and_national_anthem_-_Oh_Uganda_Land_o.ogg`,
+        src: `./music/1-06 School Days.mp3`,
       },
       {
         genre: `pop`,
-        src: `https://upload.wikimedia.org/wikipedia/commons/1/1f/Uganda_flag_and_national_anthem_-_Oh_Uganda_Land_o.ogg`,
+        src: `./music/03. Emiliana Torrini - White Rabbit.mp3`,
       },
       {
         genre: `jazz`,
-        src: `https://upload.wikimedia.org/wikipedia/commons/1/1f/Uganda_flag_and_national_anthem_-_Oh_Uganda_Land_o.ogg`,
+        src: `./music/04 The Chain.mp3`,
       },
       {
         genre: `rock`,
-        src: `https://upload.wikimedia.org/wikipedia/commons/1/1f/Uganda_flag_and_national_anthem_-_Oh_Uganda_Land_o.ogg`,
+        src: `./music/08 - Terraforming.flac`,
       },
     ],
     genre: `rock`,
@@ -38,7 +38,7 @@ export default [
     ],
     song: {
       artist: `Jim Beam`,
-      src: `path.mp3`,
+      src: `./music/09. Valse di Fantastica.flac`,
     },
     type: `artist`,
   },

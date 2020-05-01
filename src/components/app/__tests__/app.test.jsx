@@ -54,9 +54,8 @@ const mock = {
 it(`snapshot`, () => {
   const { questions } = mock;
 
-  const tree = renderer
-    .create(<App errorCount={5} gameTime={3} questions={questions} />)
-    .toJSON();
-
-  expect(tree).toMatchSnapshot();
+  const tree = renderer.create(
+    <App errorCount={5} gameTime={3} questions={questions} />
+  );
+  expect(tree.toJSON()).toMatchSnapshot();
 });
