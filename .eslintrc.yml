@@ -9,7 +9,7 @@ extends: ["plugin:react/recommended"]
 parserOptions:
   ecmaFeatures:
     jsx: true
-  ecmaVersion: 6
+  ecmaVersion: 2019
   sourceType: module
 
 plugins: ["react"]

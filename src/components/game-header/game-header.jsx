@@ -1,6 +1,8 @@
 import React from "react";
 
-const GameHeader = ({}) => {
+import Mistakes from "../mistakes/mistakes.jsx";
+
+const GameHeader = () => {
   return (
     <header className="game__header">
       <a className="game__back" href="#">
@@ -33,11 +35,7 @@ const GameHeader = ({}) => {
         <span className="timer__dots">:</span>
         <span className="timer__secs">00</span>
       </div>
-      <div className="game__mistakes">
-        <div className="wrong" />
-        <div className="wrong" />
-        <div className="wrong" />
-      </div>
+      <Mistakes />
     </header>
   );
 };
