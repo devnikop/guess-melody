@@ -10,10 +10,12 @@ class GenreScreen extends React.PureComponent {
     this.state = {
       activePlayer: -1,
     };
+
+    this._handleFormSubmit = this._handleFormSubmit.bind(this);
   }
 
   render() {
-    const { onAnswer, question } = this.props;
+    const { question } = this.props;
     const { answers, genre } = question;
 
     return (
@@ -21,10 +23,7 @@ class GenreScreen extends React.PureComponent {
         <h2 className="game__title">Выберите {genre} треки</h2>
         <form
           className="game__tracks"
-          onSubmit={(evt) => {
-            evt.preventDefault();
-            onAnswer();
-          }}
+          onSubmit={this._handleFormSubmit}
         >
           {answers.map((it, i) => (
             <div className="track" key={`answer-${i}`}>
@@ -57,6 +56,11 @@ class GenreScreen extends React.PureComponent {
         </form>
       </section>
     );
+  }
+
+  _handleFormSubmit(evt) {
+    evt.preventDefault();
+    this.props.onAnswer();
   }
 }
 

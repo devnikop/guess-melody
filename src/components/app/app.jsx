@@ -1,3 +1,4 @@
+import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import React from "react";
 
@@ -14,12 +15,6 @@ const Type = {
 class App extends React.PureComponent {
   constructor(props) {
     super(props);
-
-    this.state = {
-      question: -1,
-    };
-
-    this._onUserAnswerBinded = this._onUserAnswer.bind(this);
   }
 
   render() {
@@ -31,42 +26,32 @@ class App extends React.PureComponent {
     );
   }
 
-  _getScreen(onUserAnswer) {
-    const { question: questionNumber } = this.state;
+  _getScreen() {
+    const { questionStep } = this.props;
 
-    if (questionNumber === -1) {
+    if (questionStep === -1) {
       const { errorCount, gameTime } = this.props;
 
       return (
         <WelcomeScreen
           errorCount={errorCount}
-          onStartButtonClick={onUserAnswer}
           time={gameTime}
         />
       );
     }
 
-    const currentQuestion = this.props.questions[questionNumber];
+    const currentQuestion = this.props.questions[questionStep];
     switch (currentQuestion.type) {
       case `genre`:
         return (
-          <GenreScreen question={currentQuestion} onAnswer={onUserAnswer} />
+          <GenreScreen question={currentQuestion} />
         );
       case `artist`:
         return (
-          <ArtistScreen question={currentQuestion} onAnswer={onUserAnswer} />
+          <ArtistScreen question={currentQuestion} />
         );
     }
     return null;
-  }
-
-  _onUserAnswer() {
-    const { question } = this.state;
-    const { questions } = this.props;
-
-    this.setState({
-      question: question + 1 >= questions.length ? -1 : question + 1,
-    });
   }
 }
 
@@ -91,6 +76,12 @@ App.propTypes = {
       type: PropTypes.oneOf([`genre`, `artist`]).isRequired,
     })
   ).isRequired,
+  questionStep: PropTypes.number.isRequired,
 };
 
-export default App;
+const mapStateToProps = (state) => ({
+  questionStep: state.step
+});
+
+export { App };
+export default connect(mapStateToProps)(App);

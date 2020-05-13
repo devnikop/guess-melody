@@ -1,7 +1,10 @@
 import PropTypes from "prop-types";
 import React from "react";
+import { connect } from "react-redux";
 
-const WelcomeScreen = ({ errorCount, onStartButtonClick, time }) => {
+import { ActionCreator } from "../../store/reducer";
+
+const WelcomeScreen = ({ errorCount, incrementQuestion, time }) => {
   return (
     <section className="welcome">
       <div className="welcome__logo">
@@ -12,7 +15,7 @@ const WelcomeScreen = ({ errorCount, onStartButtonClick, time }) => {
           height="83"
         />
       </div>
-      <button className="welcome__button" onClick={() => onStartButtonClick()}>
+      <button className="welcome__button" onClick={incrementQuestion}>
         <span className="visually-hidden">Начать игру</span>
       </button>
       <h2 className="welcome__rules-title">Правила игры</h2>
@@ -28,8 +31,16 @@ const WelcomeScreen = ({ errorCount, onStartButtonClick, time }) => {
 
 WelcomeScreen.propTypes = {
   errorCount: PropTypes.number.isRequired,
-  onStartButtonClick: PropTypes.func,
+  incrementQuestion: PropTypes.func.isRequired,
   time: PropTypes.number.isRequired,
 };
 
-export default WelcomeScreen;
+export { WelcomeScreen };
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    incrementQuestion: () => dispatch(ActionCreator.incrementStep()),
+  }
+}
+
+export default connect(null, mapDispatchToProps)(WelcomeScreen);

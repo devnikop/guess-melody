@@ -1,3 +1,5 @@
+import { Provider } from "react-redux";
+import configureStore from "redux-mock-store";
 import React from "react";
 import renderer from "react-test-renderer";
 
@@ -51,11 +53,28 @@ const mock = {
   ],
 };
 
-it(`snapshot`, () => {
+const initialState = {
+  mistakes: 0,
+  step: -1,
+};
+
+const middlewares = [];
+const mockStore = configureStore(middlewares);
+const store = mockStore(initialState);
+
+it(`renders welcome screen correctly`, () => {
   const { questions } = mock;
 
   const tree = renderer.create(
-    <App errorCount={5} gameTime={3} questions={questions} />
-  );
-  expect(tree.toJSON()).toMatchSnapshot();
+    <Provider store={store}>
+      <App
+        errorCount={5}
+        gameTime={3}
+        questions={questions}
+        questionStep={-1}
+      />
+    </Provider>
+  ).toJSON();
+
+  expect(tree).toMatchSnapshot();
 });
