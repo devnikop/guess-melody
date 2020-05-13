@@ -8,15 +8,15 @@ const Selector = {
 }
 
 it(`welcome button click`, () => {
-  const handlerButtonClick = jest.fn();
+  const spyButtonClick = jest.fn();
   const wrapper = shallow(
     <WelcomeScreen
       errorCount={0}
-      incrementQuestion={handlerButtonClick}
+      incrementQuestion={spyButtonClick}
       time={0}
     />
   );
 
   wrapper.find(Selector.WELCOME_BUTTON).simulate(`click`);
-  expect(handlerButtonClick).toHaveBeenCalledTimes(1);
+  expect(spyButtonClick).toHaveBeenCalled();
 });

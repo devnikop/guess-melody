@@ -1,10 +1,25 @@
+import { Provider } from "react-redux";
+import configureStore from "redux-mock-store";
 import React from "react";
 import renderer from "react-test-renderer";
 
 import GameHeader from "../game-header.jsx";
 
-it(`snapshot`, () => {
-  const tree = renderer.create(<GameHeader />);
+const initialState = {
+  mistakes: 0,
+  step: -1,
+};
 
-  expect(tree.toJSON()).toMatchSnapshot();
+const mockStore = configureStore([]);
+
+it(`snapshot`, () => {
+  const store = mockStore(initialState);
+
+  const tree = renderer.create(
+    <Provider store={store}>
+      <GameHeader />
+    </Provider>
+  ).toJSON();
+
+  expect(tree).toMatchSnapshot();
 });

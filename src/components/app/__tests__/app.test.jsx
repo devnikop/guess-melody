@@ -68,8 +68,7 @@ const artistScreenState = {
   step: 1,
 };
 
-const middlewares = [];
-const mockStore = configureStore(middlewares);
+const mockStore = configureStore([]);
 
 const createNodeMock = (element) => {
   if (element.type === `audio`) {

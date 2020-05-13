@@ -35,6 +35,6 @@ it(`snapshot`, () => {
   const tree = renderer.create(
     <ArtistScreen onAnswer={jest.fn()} question={question} />,
     { createNodeMock }
-  );
-  expect(tree.toJSON()).toMatchSnapshot();
+  ).toJSON();
+  expect(tree).toMatchSnapshot();
 });

@@ -8,18 +8,16 @@ const Selector = {
 };
 
 it.skip(`click on play call callback`, () => {
-  const clickHandler = jest.fn();
+  const spyButtonClick = jest.fn();
 
   const wrapper = mount(
     <AudioPlayer
-      isPlaying={false}
-      onPlayButtonClick={clickHandler}
+      isPlaying={true}
+      onPlayButtonClick={spyButtonClick}
       src={`source`}
     />
   );
-  const playButton = wrapper.find(Selector.PLAY_BUTTON);
 
-  playButton.simulate(`click`);
-  wrapper.update();
-  expect(clickHandler).toHaveBeenCalledTimes(1);
+  wrapper.find(Selector.PLAY_BUTTON).simulate(`click`);
+  expect(spyButtonClick).toHaveBeenCalled();
 });

@@ -17,7 +17,7 @@ it(`snapshot`, () => {
       src={`source`}
     />,
     { createNodeMock }
-  );
+  ).toJSON();
 
-  expect(tree.toJSON()).toMatchSnapshot();
+  expect(tree).toMatchSnapshot();
 });

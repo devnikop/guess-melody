@@ -81,5 +81,4 @@ const mapDispatchToProps = {
 };
 
 export { ArtistScreen };
-
 export default connect(null, mapDispatchToProps)(ArtistScreen);

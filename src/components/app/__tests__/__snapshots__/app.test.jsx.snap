@@ -103,6 +103,7 @@ exports[`app snapshots: render artist-screen with updated state 1`] = `
       </div>
       <form
         className="game__artist"
+        onChange={[Function]}
       >
         <div
           className="artist"

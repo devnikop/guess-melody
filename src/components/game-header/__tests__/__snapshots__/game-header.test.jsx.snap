@@ -62,13 +62,13 @@ exports[`snapshot 1`] = `
     className="game__mistakes"
   >
     <div
-      className="wrong"
+      className="correct"
     />
     <div
-      className="wrong"
+      className="correct"
     />
     <div
-      className="wrong"
+      className="correct"
     />
   </div>
 </header>

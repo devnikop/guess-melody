@@ -3,6 +3,10 @@ import React from "react";
 
 import { GenreScreen } from "../genre-screen.jsx";
 
+const Selector = {
+  GAME_TRACKS: `.game__tracks`,
+}
+
 const mock = {
   question: {
     answers: [
@@ -22,16 +26,15 @@ const mock = {
 
 it(`form submit`, () => {
   const { question } = mock;
+  const spyFormSumbit = jest.fn();
 
-  const submitHandler = jest.fn();
   const component = shallow(
-    <GenreScreen onAnswer={submitHandler} question={question} />
+    <GenreScreen onAnswer={spyFormSumbit} question={question} />
   );
 
-  const form = component.find(`.game__tracks`);
+  const form = component.find(Selector.GAME_TRACKS);
   form.simulate(`submit`, {
     preventDefault: jest.fn(),
   });
-
-  expect(submitHandler).toHaveBeenCalled();
+  expect(spyFormSumbit).toHaveBeenCalled();
 });

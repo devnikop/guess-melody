@@ -19,12 +19,12 @@ Mistakes.propTypes = {
   mistakes: PropTypes.number.isRequired
 }
 
-export { Mistakes };
-
 const mapStateToProps = (state) => {
   return {
     mistakes: state.mistakes
   }
 }
+
+export { Mistakes };
 
 export default connect(mapStateToProps)(Mistakes);
