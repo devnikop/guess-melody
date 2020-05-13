@@ -32,11 +32,7 @@ class GenreScreen extends React.PureComponent {
             <div className="track" key={`answer-${i}`}>
               <AudioPlayer
                 isPlaying={i === this.state.activePlayer}
-                onPlayButtonClick={() =>
-                  this.setState({
-                    activePlayer: this.state.activePlayer === i ? -1 : i,
-                  })
-                }
+                onPlayButtonClick={this._handlePlayClick.bind(this, i)}
                 src={it.src}
               />
               <div className="game__answer">
@@ -59,6 +55,12 @@ class GenreScreen extends React.PureComponent {
         </form>
       </section>
     );
+  }
+
+  _handlePlayClick(index) {
+    this.setState({
+      activePlayer: this.state.activePlayer === index ? -1 : index,
+    })
   }
 
   _handleFormSubmit(evt) {
