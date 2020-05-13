@@ -37,6 +37,7 @@ exports[`snapshot 1`] = `
           defaultValue="answer-0"
           id="answer-0"
           name="answer"
+          onChange={[Function]}
           type="checkbox"
         />
         <label
@@ -69,6 +70,7 @@ exports[`snapshot 1`] = `
           defaultValue="answer-1"
           id="answer-1"
           name="answer"
+          onChange={[Function]}
           type="checkbox"
         />
         <label

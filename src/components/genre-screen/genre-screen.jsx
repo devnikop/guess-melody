@@ -12,6 +12,7 @@ class GenreScreen extends React.PureComponent {
 
     this.state = {
       activePlayer: -1,
+      answers: Array(props.question.answers.length).fill(false),
     };
 
     this._handleFormSubmit = this._handleFormSubmit.bind(this);
@@ -38,10 +39,11 @@ class GenreScreen extends React.PureComponent {
               <div className="game__answer">
                 <input
                   className="game__input visually-hidden"
-                  type="checkbox"
-                  name="answer"
                   defaultValue={`answer-${i}`}
                   id={`answer-${i}`}
+                  name="answer"
+                  type="checkbox"
+                  onChange={this._handleInputChange.bind(this, i)}
                 />
                 <label className="game__check" htmlFor={`answer-${i}`}>
                   Отметить
@@ -65,12 +67,26 @@ class GenreScreen extends React.PureComponent {
 
   _handleFormSubmit(evt) {
     evt.preventDefault();
-    this.props.onAnswer();
+    this.props.onSubmit(this.state.answers);
+  }
+
+  _handleInputChange(index) {
+    this.setState({
+      answers: this._getUpdatedAnswers(this.state.answers, index)
+    })
+  }
+
+  _getUpdatedAnswers(answers, index) {
+    return answers.map((answer, answerIndex, answers) =>
+      answerIndex === index
+        ? answers[answerIndex] = !answers[answerIndex]
+        : answers[answerIndex]
+    )
   }
 }
 
 GenreScreen.propTypes = {
-  onAnswer: PropTypes.func.isRequired,
+  onSubmit: PropTypes.func.isRequired,
   question: PropTypes.shape({
     answers: PropTypes.arrayOf(
       PropTypes.shape({
@@ -84,9 +100,8 @@ GenreScreen.propTypes = {
 };
 
 const mapDispatchToProps = {
-  onAnswer: ActionCreator.incrementStep
+  onSubmit: ActionCreator.checkAnswer
 };
 
 export { GenreScreen };
-
 export default connect(null, mapDispatchToProps)(GenreScreen);

@@ -29,7 +29,7 @@ it(`form submit`, () => {
   const spyFormSumbit = jest.fn();
 
   const component = shallow(
-    <GenreScreen onAnswer={spyFormSumbit} question={question} />
+    <GenreScreen onSubmit={spyFormSumbit} question={question} />
   );
 
   const form = component.find(Selector.GAME_TRACKS);
