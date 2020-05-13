@@ -1,7 +1,7 @@
 import { shallow } from "enzyme";
 import React from "react";
 
-import ArtistScreen from "../artist-screen.jsx";
+import { ArtistScreen } from "../artist-screen.jsx";
 
 const mock = {
   question: {
@@ -33,4 +33,6 @@ it(`form change`, () => {
 
   const form = component.find(`.game__artist`);
   form.simulate(`change`);
+
+  expect(changeHandler).toHaveBeenCalled();
 });

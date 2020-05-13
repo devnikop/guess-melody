@@ -1,7 +1,10 @@
+import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import React from "react";
 
 import AudioPlayer from "../audio-player/audio-player.jsx";
+
+import { ActionCreator } from "../../store/reducer.js";
 
 class ArtistScreen extends React.PureComponent {
   constructor(props) {
@@ -73,4 +76,10 @@ ArtistScreen.propTypes = {
   }).isRequired,
 };
 
-export default ArtistScreen;
+const mapDispatchToProps = {
+  onAnswer: ActionCreator.incrementStep
+};
+
+export { ArtistScreen };
+
+export default connect(null, mapDispatchToProps)(ArtistScreen);

@@ -1,8 +1,7 @@
 import React from "react";
 import renderer from "react-test-renderer";
 
-import ArtistScreen from "../artist-screen.jsx";
-import { element } from "prop-types";
+import { ArtistScreen } from "../artist-screen.jsx";
 
 const mock = {
   question: {

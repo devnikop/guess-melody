@@ -1,7 +1,10 @@
+import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import React from "react";
 
 import AudioPlayer from "../audio-player/audio-player.jsx";
+
+import { ActionCreator } from "../../store/reducer.js";
 
 class GenreScreen extends React.PureComponent {
   constructor(props) {
@@ -65,7 +68,7 @@ class GenreScreen extends React.PureComponent {
 }
 
 GenreScreen.propTypes = {
-  onAnswer: PropTypes.func,
+  onAnswer: PropTypes.func.isRequired,
   question: PropTypes.shape({
     answers: PropTypes.arrayOf(
       PropTypes.shape({
@@ -78,4 +81,10 @@ GenreScreen.propTypes = {
   }),
 };
 
-export default GenreScreen;
+const mapDispatchToProps = {
+  onAnswer: ActionCreator.incrementStep
+};
+
+export { GenreScreen };
+
+export default connect(null, mapDispatchToProps)(GenreScreen);

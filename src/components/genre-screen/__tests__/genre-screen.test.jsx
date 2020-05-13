@@ -1,7 +1,7 @@
 import React from "react";
 import renderer from "react-test-renderer";
 
-import GenreScreen from "../genre-screen.jsx";
+import { GenreScreen } from "../genre-screen.jsx";
 
 const mock = {
   question: {
@@ -31,9 +31,7 @@ it(`snapshot`, () => {
 
   const tree = renderer.create(
     <GenreScreen question={question} onAnswer={jest.fn()} />,
-    {
-      createNodeMock,
-    }
+    { createNodeMock }
   );
   expect(tree.toJSON()).toMatchSnapshot();
 });

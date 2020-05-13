@@ -1,7 +1,7 @@
 import { shallow } from "enzyme";
 import React from "react";
 
-import GenreScreen from "../genre-screen.jsx";
+import { GenreScreen } from "../genre-screen.jsx";
 
 const mock = {
   question: {
