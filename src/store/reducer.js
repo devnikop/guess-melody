@@ -8,13 +8,37 @@ const initialState = {
 
 const INCREMENT_MISTAKES = `INCREASE_MISTAKES`;
 const INCREMENT_STEP = `NEXT_QUESTION`;
+const RESET_STORE = `RESET_STORE`;
 
 const ActionCreator = {
-  checkAnswerMiddleware: (answers) => {
+  checkArtistQuestion: (answerIndex) => {
+    return function(dispatch, getState) {
+      const {questions, currentQuestion: current} = getState();
+      const currentQuestion = questions[current];
+
+      const isAnswerRight = (
+        currentQuestion.song.artist ===
+        currentQuestion.answers[answerIndex].artist
+      );
+
+      if (current >= questions.length - 1) {
+        dispatch(ActionCreator.resetStore())
+      }
+
+      if (isAnswerRight) {
+        dispatch(ActionCreator.incrementStep())
+      } else {
+        dispatch(ActionCreator.incrementStep())
+        dispatch(ActionCreator.incrementMistake())
+      }
+    }
+  },
+
+  checkGenreQuestion: (answers) => {
     return function(dispatch, getState) {
       const {questions, currentQuestion: current} = getState();
 
-      const isAnswerRight = answers.reduce((acc, answer, index) => {
+      const rightAnswerCount = answers.reduce((acc, answer, index) => {
         const currentQuestion = questions[current];
         const currentGenre = currentQuestion.answers[index].genre;
         const questionGenre = currentQuestion.genre;
@@ -24,7 +48,7 @@ const ActionCreator = {
           : acc
       }, 0);
 
-      if (isAnswerRight === answers.length) {
+      if (rightAnswerCount === answers.length) {
         dispatch(ActionCreator.incrementStep())
       } else {
         dispatch(ActionCreator.incrementStep())
@@ -42,6 +66,10 @@ const ActionCreator = {
     type: INCREMENT_STEP,
     payload: 1
   }),
+
+  resetStore: () => ({
+    type: RESET_STORE
+  })
 };
 
 const rootReducer = (state = initialState, action) => {
@@ -56,6 +84,8 @@ const rootReducer = (state = initialState, action) => {
         ...state,
         currentQuestion: state.currentQuestion + action.payload
       }
+    case RESET_STORE:
+      return initialState
     default:
       return state;
   }

@@ -13,10 +13,12 @@ class ArtistScreen extends React.PureComponent {
     this.state = {
       isPlaying: false,
     };
+
+    this._handleInputChange = this._handleInputChange.bind(this);
   }
 
   render() {
-    const { onAnswer, question } = this.props;
+    const { onChange, question } = this.props;
     const { isPlaying } = this.state;
     const { answers, song } = question;
 
@@ -32,7 +34,7 @@ class ArtistScreen extends React.PureComponent {
             />
           </div>
 
-          <form className="game__artist" onChange={onAnswer}>
+          <form className="game__artist">
             {answers.map((it, i) => (
               <div className="artist" key={i}>
                 <input
@@ -41,6 +43,7 @@ class ArtistScreen extends React.PureComponent {
                   name="answer"
                   value={`answer-${i}`}
                   id={`answer-${i}`}
+                  onChange={this._handleInputChange.bind(null, i)}
                 />
                 <label className="artist__name" htmlFor={`answer-${i}`}>
                   <img
@@ -57,10 +60,14 @@ class ArtistScreen extends React.PureComponent {
       </section>
     );
   }
+
+  _handleInputChange(index) {
+    this.props.onChange(index);
+  }
 }
 
 ArtistScreen.propTypes = {
-  onAnswer: PropTypes.func.isRequired,
+  onChange: PropTypes.func.isRequired,
   question: PropTypes.shape({
     answers: PropTypes.arrayOf(
       PropTypes.shape({
@@ -77,7 +84,7 @@ ArtistScreen.propTypes = {
 };
 
 const mapDispatchToProps = {
-  onAnswer: ActionCreator.incrementStep
+  onChange: ActionCreator.checkArtistQuestion
 };
 
 export { ArtistScreen };

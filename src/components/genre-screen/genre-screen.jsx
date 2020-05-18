@@ -100,7 +100,7 @@ GenreScreen.propTypes = {
 };
 
 const mapDispatch = {
-  onSubmit: ActionCreator.checkAnswerMiddleware
+  onSubmit: ActionCreator.checkGenreQuestion
 };
 
 export { GenreScreen };
