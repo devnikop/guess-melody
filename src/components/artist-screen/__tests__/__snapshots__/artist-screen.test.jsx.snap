@@ -29,7 +29,6 @@ exports[`snapshot 1`] = `
     </div>
     <form
       className="game__artist"
-      onChange={[MockFunction]}
     >
       <div
         className="artist"
@@ -38,6 +37,7 @@ exports[`snapshot 1`] = `
           className="artist__input visually-hidden"
           id="answer-0"
           name="answer"
+          onChange={[Function]}
           type="radio"
           value="answer-0"
         />
@@ -60,6 +60,7 @@ exports[`snapshot 1`] = `
           className="artist__input visually-hidden"
           id="answer-1"
           name="answer"
+          onChange={[Function]}
           type="radio"
           value="answer-1"
         />

@@ -4,7 +4,7 @@ import React from "react";
 import { ArtistScreen } from "../artist-screen.jsx";
 
 const Selector = {
-  GAME_ARTIST: `.game__artist`,
+  ARTIST_INPUT: `.artist__input`,
 }
 
 const mock = {
@@ -29,12 +29,12 @@ const mock = {
 
 it(`form change`, () => {
   const { question } = mock;
-  const spyFormChange = jest.fn();
+  const spyInputChange = jest.fn();
 
   const wrapper = shallow(
-    <ArtistScreen onAnswer={spyFormChange} question={question} />
+    <ArtistScreen onChange={spyInputChange} question={question} />
   );
 
-  wrapper.find(Selector.GAME_ARTIST).simulate(`change`);
-  expect(spyFormChange).toHaveBeenCalled();
+  wrapper.find(Selector.ARTIST_INPUT).at(0).simulate(`change`);
+  expect(spyInputChange).toHaveBeenCalled();
 });

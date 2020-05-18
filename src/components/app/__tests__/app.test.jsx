@@ -55,17 +55,20 @@ const mock = {
 
 const initialState = {
   mistakes: 0,
-  step: -1,
+  questions: mock.questions,
+  currentQuestion: -1,
 };
 
 const genreScreenState = {
   mistakes: 0,
-  step: 0
+  questions: mock.questions,
+  currentQuestion: 0,
 };
 
 const artistScreenState = {
   mistakes: 0,
-  step: 1,
+  questions: mock.questions,
+  currentQuestion: 1,
 };
 
 const mockStore = configureStore([]);
@@ -78,7 +81,6 @@ const createNodeMock = (element) => {
 
 describe(`app snapshots:`, () => {
   it(`render welcome-screen with initial state`, () => {
-    const { questions } = mock;
     const store = mockStore(initialState);
 
     const tree = renderer.create(
@@ -86,7 +88,6 @@ describe(`app snapshots:`, () => {
         <App
           errorCount={5}
           gameTime={3}
-          questions={questions}
         />
       </Provider>
     ).toJSON();
@@ -95,7 +96,6 @@ describe(`app snapshots:`, () => {
   });
 
   it(`render genre-screen with updated state`, () => {
-    const { questions } = mock;
     const store = mockStore(genreScreenState);
 
     const tree = renderer.create(
@@ -103,7 +103,6 @@ describe(`app snapshots:`, () => {
         <App
           errorCount={5}
           gameTime={3}
-          questions={questions}
         />
       </Provider>,
       { createNodeMock }
@@ -113,7 +112,6 @@ describe(`app snapshots:`, () => {
   });
 
   it(`render artist-screen with updated state`, () => {
-    const { questions } = mock;
     const store = mockStore(artistScreenState);
 
     const tree = renderer.create(
@@ -121,7 +119,6 @@ describe(`app snapshots:`, () => {
         <App
           errorCount={5}
           gameTime={3}
-          questions={questions}
         />
       </Provider>,
       { createNodeMock }
