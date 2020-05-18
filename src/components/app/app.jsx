@@ -80,7 +80,8 @@ App.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-  questionStep: state.currentQuestion
+  questions: state.questions,
+  questionStep: state.currentQuestion,
 });
 
 export { App };

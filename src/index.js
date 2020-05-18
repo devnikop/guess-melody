@@ -4,10 +4,9 @@ import {Provider} from "react-redux";
 
 import App from "./components/app/app.jsx";
 
-import questions from "./mocks/questions";
 import { store } from "./store/store-setup";
 
-const init = (gameQuestions) => {
+const init = () => {
   const settings = {
     gameTime: 5,
     errorCount: 3,
@@ -18,11 +17,10 @@ const init = (gameQuestions) => {
       <App
         gameTime={settings.gameTime}
         errorCount={settings.errorCount}
-        questions={gameQuestions}
       />
     </Provider>,
     document.querySelector(`.main`)
   );
 };
 
-init(questions);
+init();

@@ -1,18 +1,35 @@
+import questions from "../mocks/questions";
+
 const initialState = {
-  mistakes: 0,
   currentQuestion: -1,
+  mistakes: 0,
+  questions,
 };
 
 const INCREMENT_MISTAKES = `INCREASE_MISTAKES`;
 const INCREMENT_STEP = `NEXT_QUESTION`;
-const CHECK_ANSWER = `CHECK_ANSWER`;
 
 const ActionCreator = {
-  checkAnswer: (answers) => {
+  checkAnswerMiddleware: (answers) => {
+    return function(dispatch, getState) {
+      const {questions, currentQuestion: current} = getState();
 
+      const isAnswerRight = answers.reduce((acc, answer, index) => {
+        const currentQuestion = questions[current];
+        const currentGenre = currentQuestion.answers[index].genre;
+        const questionGenre = currentQuestion.genre;
 
-    return {
-      type: CHECK_ANSWER
+        return ((questionGenre === currentGenre) === answer)
+          ? acc + 1
+          : acc
+      }, 0);
+
+      if (isAnswerRight === answers.length) {
+        dispatch(ActionCreator.incrementStep())
+      } else {
+        dispatch(ActionCreator.incrementStep())
+        dispatch(ActionCreator.incrementMistake())
+      }
     }
   },
 

@@ -99,9 +99,9 @@ GenreScreen.propTypes = {
   }),
 };
 
-const mapDispatchToProps = {
-  onSubmit: ActionCreator.checkAnswer
+const mapDispatch = {
+  onSubmit: ActionCreator.checkAnswerMiddleware
 };
 
 export { GenreScreen };
-export default connect(null, mapDispatchToProps)(GenreScreen);
+export default connect(null, mapDispatch)(GenreScreen);
