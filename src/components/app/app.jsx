@@ -44,11 +44,17 @@ class App extends React.PureComponent {
     switch (currentQuestion.type) {
       case `genre`:
         return (
-          <GenreScreen question={currentQuestion} />
+          <GenreScreen
+            key={`genre-${questionStep}`}
+            question={currentQuestion}
+          />
         );
       case `artist`:
         return (
-          <ArtistScreen question={currentQuestion} />
+          <ArtistScreen
+            key={`artist-${questionStep}`}
+            question={currentQuestion}
+          />
         );
     }
     return null;

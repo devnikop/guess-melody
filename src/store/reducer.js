@@ -10,36 +10,37 @@ const INCREMENT_MISTAKES = `INCREASE_MISTAKES`;
 const INCREMENT_STEP = `NEXT_QUESTION`;
 const RESET_STORE = `RESET_STORE`;
 
+const isArtistAnswerRight = (question, index) => {
+  return (question.song.artist ===
+    question.answers[index].artist)
+};
+
 const ActionCreator = {
   checkArtistQuestion: (answerIndex) => {
     return function(dispatch, getState) {
-      const {questions, currentQuestion: current} = getState();
-      const currentQuestion = questions[current];
+      const {currentQuestion: questionIndex, mistakes, questions} = getState();
+      const currentQuestion = questions[questionIndex];
 
-      const isAnswerRight = (
-        currentQuestion.song.artist ===
-        currentQuestion.answers[answerIndex].artist
-      );
-
-      if (current >= questions.length - 1) {
+      if (questionIndex >= questions.length - 1 || mistakes >= 2) {
         dispatch(ActionCreator.resetStore())
       }
-
-      if (isAnswerRight) {
-        dispatch(ActionCreator.incrementStep())
-      } else {
-        dispatch(ActionCreator.incrementStep())
-        dispatch(ActionCreator.incrementMistake())
+      else {
+        if (isArtistAnswerRight(currentQuestion, answerIndex)) {
+          dispatch(ActionCreator.incrementStep())
+        } else {
+          dispatch(ActionCreator.incrementStep())
+          dispatch(ActionCreator.incrementMistake())
+        }
       }
     }
   },
 
   checkGenreQuestion: (answers) => {
     return function(dispatch, getState) {
-      const {questions, currentQuestion: current} = getState();
+      const {currentQuestion: questionIndex, mistakes, questions} = getState();
 
       const rightAnswerCount = answers.reduce((acc, answer, index) => {
-        const currentQuestion = questions[current];
+        const currentQuestion = questions[questionIndex];
         const currentGenre = currentQuestion.answers[index].genre;
         const questionGenre = currentQuestion.genre;
 
@@ -48,11 +49,15 @@ const ActionCreator = {
           : acc
       }, 0);
 
-      if (rightAnswerCount === answers.length) {
-        dispatch(ActionCreator.incrementStep())
+      if (questionIndex >= questions.length - 1 || mistakes >= 2) {
+        dispatch(ActionCreator.resetStore())
       } else {
-        dispatch(ActionCreator.incrementStep())
-        dispatch(ActionCreator.incrementMistake())
+        if (rightAnswerCount === answers.length) {
+          dispatch(ActionCreator.incrementStep())
+        } else {
+          dispatch(ActionCreator.incrementStep())
+          dispatch(ActionCreator.incrementMistake())
+        }
       }
     }
   },
