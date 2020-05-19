@@ -57,7 +57,7 @@ class AudioPlayer extends React.PureComponent {
 
     this._audio.ontimeupdate = () =>
       this.setState({
-        progress: this._audio.currentTime,
+        progress: Math.floor(this._audio.currentTime),
       });
   }
 
