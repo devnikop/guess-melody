@@ -4,10 +4,13 @@ import React from "react";
 import { GenreScreen } from "../genre-screen.jsx";
 
 const Selector = {
+  GAME_INPUT: `.game__input`,
   GAME_TRACKS: `.game__tracks`,
 }
 
 const mock = {
+  activePlayer: -1,
+  answers: [false, false],
   question: {
     answers: [
       {
@@ -24,17 +27,39 @@ const mock = {
   },
 };
 
-it(`form submit`, () => {
-  const { question } = mock;
-  const spyFormSumbit = jest.fn();
+describe(`GenreScreen`, () => {
+  const spyOnFormSumbit = jest.fn();
+  const spyOnInputChange = jest.fn();
 
-  const component = shallow(
-    <GenreScreen onSubmit={spyFormSumbit} question={question} />
-  );
-
-  const form = component.find(Selector.GAME_TRACKS);
-  form.simulate(`submit`, {
-    preventDefault: jest.fn(),
+  let wrapper;
+  beforeEach(() => {
+    const { activePlayer, answers, question } = mock;
+    wrapper = shallow(
+      <GenreScreen
+        activePlayer={activePlayer}
+        answers={answers}
+        question={question}
+        onFormSubmit={spyOnFormSumbit}
+        onInputChange={spyOnInputChange}
+        onPlayButtonClick={jest.fn()}
+      />
+    );
   });
-  expect(spyFormSumbit).toHaveBeenCalled();
+
+  it(`call props onFormSubmit when submit form`, () => {
+    const { answers } = mock;
+    const form = wrapper.find(Selector.GAME_TRACKS);
+    form.simulate(`submit`, {
+      preventDefault: jest.fn(),
+    });
+
+    expect(spyOnFormSumbit).toHaveBeenCalledWith(answers)
+  });
+
+  it(`call props onInputChange(1) when change second input`, () => {
+    const input = wrapper.find(Selector.GAME_INPUT).at(1);
+    input.simulate(`change`);
+
+    expect(spyOnInputChange).toHaveBeenCalledWith(1);
+  });
 });

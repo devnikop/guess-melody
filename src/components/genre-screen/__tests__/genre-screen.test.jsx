@@ -30,7 +30,14 @@ it(`snapshot`, () => {
   const { question } = mock;
 
   const tree = renderer.create(
-    <GenreScreen onSubmit={jest.fn()} question={question} />,
+    <GenreScreen
+      activePlayer={-1}
+      answers={[false, false]}
+      question={question}
+      onFormSubmit={jest.fn()}
+      onInputChange={jest.fn()}
+      onPlayButtonClick={jest.fn()}
+    />,
     { createNodeMock }
   ).toJSON();
   expect(tree).toMatchSnapshot();

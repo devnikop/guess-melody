@@ -33,9 +33,9 @@ const GenreScreen = ({
         {questionAnswers.map((it, i) => (
           <div className="track" key={`answer-${i}`}>
             <AudioPlayer
+              src={it.src}
               isPlaying={i === activePlayer}
               onPlayButtonClick={onPlayButtonClick.bind(null, i)}
-              src={it.src}
             />
             <div className="game__answer">
               <input
