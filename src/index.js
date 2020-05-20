@@ -1,23 +1,17 @@
+import {Provider} from "react-redux";
 import React from "react";
 import ReactDOM from "react-dom";
-import {Provider} from "react-redux";
 
 import App from "./components/app/app.jsx";
-
+import withScreenSwitch from "./hocs/with-screen-switch/with-screen-switch.jsx";
 import { store } from "./store/store-setup";
 
-const init = () => {
-  const settings = {
-    gameTime: 5,
-    errorCount: 3,
-  };
+const AppWrapped = withScreenSwitch(App);
 
+const init = () => {
   ReactDOM.render(
     <Provider store={store}>
-      <App
-        gameTime={settings.gameTime}
-        errorCount={settings.errorCount}
-      />
+      <AppWrapped />
     </Provider>,
     document.querySelector(`.main`)
   );

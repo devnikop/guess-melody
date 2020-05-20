@@ -2,6 +2,8 @@ import questions from "../mocks/questions";
 
 const initialState = {
   currentQuestion: -1,
+  errorCount: 3,
+  gameTime: 5,
   mistakes: 0,
   questions,
 };
