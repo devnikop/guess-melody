@@ -7,7 +7,7 @@ const GenreScreen = ({
   question,
   onFormSubmit,
   onInputChange,
-  renderPlayer,
+  renderAnswer,
 }) => {
   const { answers, genre } = question;
 
@@ -29,7 +29,7 @@ const GenreScreen = ({
       >
         {answers.map((answer, index) => (
           <div className="track" key={`answer-${index}`}>
-            {renderPlayer(answer.src, index)}
+            {renderAnswer(answer.src, index)}
             <div className="game__answer">
               <input
                 className="game__input visually-hidden"
@@ -57,7 +57,7 @@ GenreScreen.propTypes = {
   question: genreQuestionType,
   onFormSubmit: PropTypes.func.isRequired,
   onInputChange: PropTypes.func.isRequired,
-  renderPlayer: PropTypes.func.isRequired,
+  renderAnswer: PropTypes.func.isRequired,
 };
 
 export default GenreScreen;

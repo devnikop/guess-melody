@@ -7,7 +7,7 @@ import { ActionCreator } from "../../store/reducer.js";
 const ArtistScreen = ({
   question,
   onChange,
-  renderPlayer,
+  renderAnswer,
 }) => {
   const { answers, song } = question;
 
@@ -20,7 +20,7 @@ const ArtistScreen = ({
       <section className="game__screen">
         <h2 className="game__title">Кто исполняет эту песню?</h2>
         <div className="game__track">
-          {renderPlayer(song.src, 0)}
+          {renderAnswer(song.src, 0)}
         </div>
 
         <form className="game__artist">
@@ -65,7 +65,7 @@ ArtistScreen.propTypes = {
     type: PropTypes.oneOf([`artist`]).isRequired,
   }).isRequired,
   onChange: PropTypes.func.isRequired,
-  renderPlayer: PropTypes.func.isRequired,
+  renderAnswer: PropTypes.func.isRequired,
 };
 
 const mapDispatchToProps = {
