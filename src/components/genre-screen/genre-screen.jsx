@@ -1,27 +1,24 @@
-import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import React from "react";
 
-import AudioPlayer from "../audio-player/audio-player.jsx";
-
 import { genreQuestionType } from "../../types/types.js";
 
-import { ActionCreator } from "../../store/reducer.js";
-
 const GenreScreen = ({
-  activePlayer,
-  answers,
   question,
   onFormSubmit,
   onInputChange,
-  onPlayButtonClick,
+  renderPlayer,
 }) => {
-  const { answers: questionAnswers, genre } = question;
+  const { answers, genre } = question;
 
   const _handleFormSubmit = (evt) => {
     evt.preventDefault();
-    onFormSubmit(answers);
+    onFormSubmit();
   }
+
+  const _handleInputChange = (index) => {
+    onInputChange(index);
+  };
 
   return (
     <section className="game__screen">
@@ -30,48 +27,37 @@ const GenreScreen = ({
         className="game__tracks"
         onSubmit={_handleFormSubmit}
       >
-        {questionAnswers.map((it, i) => (
-          <div className="track" key={`answer-${i}`}>
-            <AudioPlayer
-              src={it.src}
-              isPlaying={i === activePlayer}
-              onPlayButtonClick={onPlayButtonClick.bind(null, i)}
-            />
+        {answers.map((answer, index) => (
+          <div className="track" key={`answer-${index}`}>
+            {renderPlayer(answer, index)}
             <div className="game__answer">
               <input
                 className="game__input visually-hidden"
-                defaultValue={`answer-${i}`}
-                id={`answer-${i}`}
+                defaultValue={`answer-${index}`}
+                id={`answer-${index}`}
                 name="answer"
                 type="checkbox"
-                onChange={onInputChange.bind(null, i)}
+                onChange={_handleInputChange.bind(null, index)}
               />
-              <label className="game__check" htmlFor={`answer-${i}`}>
+              <label className="game__check" htmlFor={`answer-${index}`}>
                 Отметить
-                </label>
+              </label>
             </div>
           </div>
         ))}
         <button className="game__submit button" type="submit">
           Ответить
-          </button>
+        </button>
       </form>
     </section>
   );
 }
 
 GenreScreen.propTypes = {
-  activePlayer: PropTypes.number.isRequired,
-  answers: PropTypes.arrayOf(PropTypes.bool.isRequired).isRequired,
   question: genreQuestionType,
   onFormSubmit: PropTypes.func.isRequired,
   onInputChange: PropTypes.func.isRequired,
-  onPlayButtonClick: PropTypes.func.isRequired,
+  renderPlayer: PropTypes.func.isRequired,
 };
 
-const mapDispatch = {
-  onFormSubmit: ActionCreator.checkGenreQuestion
-};
-
-export { GenreScreen };
-export default connect(null, mapDispatch)(GenreScreen);
+export default GenreScreen;

@@ -1,6 +1,10 @@
+import { compose } from "recompose";
+import { connect } from "react-redux";
+import PropTypes from "prop-types";
 import React from "react";
 
 import { genreQuestionType } from "../../types/types";
+import { ActionCreator } from "../../store/reducer";
 
 const withAnswers = (Component) => {
   class WithAnswers extends React.PureComponent {
@@ -11,22 +15,26 @@ const withAnswers = (Component) => {
         answers: Array(this.props.question.answers.length).fill(false),
       };
 
+      this._handleFormSubmit = this._handleFormSubmit.bind(this);
       this._handleInputChange = this._handleInputChange.bind(this);
     }
 
     render() {
-      const { answers } = this.state;
-
       return <Component
         {...this.props}
-        answers={answers}
+        onFormSubmit={this._handleFormSubmit}
         onInputChange={this._handleInputChange}
       />
     }
 
+    _handleFormSubmit() {
+      const { onFormSubmit } = this.props;
+      const { answers } = this.state;
+      onFormSubmit(answers)
+    }
+
     _handleInputChange(index) {
       const { answers } = this.state;
-
       this.setState({
         answers: this._getUpdatedAnswers(answers, index)
       })
@@ -43,9 +51,17 @@ const withAnswers = (Component) => {
 
   WithAnswers.propTypes = {
     question: genreQuestionType,
+    onFormSubmit: PropTypes.func.isRequired,
   };
 
   return WithAnswers;
 };
 
-export default withAnswers;
+const mapDispatch = {
+  onFormSubmit: ActionCreator.checkGenreQuestion
+};
+
+export default compose(
+  connect(null, mapDispatch),
+  withAnswers
+);
