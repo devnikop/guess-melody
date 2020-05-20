@@ -11,6 +11,7 @@ import GenreScreen from "../genre-screen/genre-screen.jsx";
 import WelcomeScreen from "../welcome-screen/welcome-screen.jsx";
 
 const GenreScreenWrapped = withActivePlayer(withAnswers(GenreScreen));
+const ArtistScreenWrapped = withActivePlayer(ArtistScreen);
 
 const Type = {
   ARTIST: `game--artist`,
@@ -56,7 +57,7 @@ class App extends React.PureComponent {
         );
       case `artist`:
         return (
-          <ArtistScreen
+          <ArtistScreenWrapped
             key={`artist-${questionStep}`}
             question={currentQuestion}
           />

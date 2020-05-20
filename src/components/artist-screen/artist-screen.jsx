@@ -2,72 +2,55 @@ import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import React from "react";
 
-import AudioPlayer from "../audio-player/audio-player.jsx";
-
 import { ActionCreator } from "../../store/reducer.js";
 
-class ArtistScreen extends React.PureComponent {
-  constructor(props) {
-    super(props);
+const ArtistScreen = ({
+  question,
+  onChange,
+  renderPlayer,
+}) => {
+  const { answers, song } = question;
 
-    this.state = {
-      isPlaying: false,
-    };
-
-    this._handleInputChange = this._handleInputChange.bind(this);
+  const _handleInputChange = (index) => {
+    onChange(index);
   }
 
-  render() {
-    const { onChange, question } = this.props;
-    const { isPlaying } = this.state;
-    const { answers, song } = question;
+  return (
+    <section className="game game--artist">
+      <section className="game__screen">
+        <h2 className="game__title">Кто исполняет эту песню?</h2>
+        <div className="game__track">
+          {renderPlayer(song.src, 0)}
+        </div>
 
-    return (
-      <section className="game game--artist">
-        <section className="game__screen">
-          <h2 className="game__title">Кто исполняет эту песню?</h2>
-          <div className="game__track">
-            <AudioPlayer
-              isPlaying={isPlaying}
-              onPlayButtonClick={() => this.setState({ isPlaying: !isPlaying })}
-              src={song.src}
-            />
-          </div>
-
-          <form className="game__artist">
-            {answers.map((it, i) => (
-              <div className="artist" key={i}>
-                <input
-                  className="artist__input visually-hidden"
-                  type="radio"
-                  name="answer"
-                  value={`answer-${i}`}
-                  id={`answer-${i}`}
-                  onChange={this._handleInputChange.bind(null, i)}
+        <form className="game__artist">
+          {answers.map((answer, index) => (
+            <div className="artist" key={index}>
+              <input
+                className="artist__input visually-hidden"
+                type="radio"
+                name="answer"
+                value={`answer-${index}`}
+                id={`answer-${index}`}
+                onChange={_handleInputChange.bind(null, index)}
+              />
+              <label className="artist__name" htmlFor={`answer-${index}`}>
+                <img
+                  className="artist__picture"
+                  src={answer.picture}
+                  alt={answer.artist}
                 />
-                <label className="artist__name" htmlFor={`answer-${i}`}>
-                  <img
-                    className="artist__picture"
-                    src={it.picture}
-                    alt={it.artist}
-                  />
-                  {it.artist}
-                </label>
-              </div>
-            ))}
-          </form>
-        </section>
+                {answer.artist}
+              </label>
+            </div>
+          ))}
+        </form>
       </section>
-    );
-  }
-
-  _handleInputChange(index) {
-    this.props.onChange(index);
-  }
+    </section>
+  );
 }
 
 ArtistScreen.propTypes = {
-  onChange: PropTypes.func.isRequired,
   question: PropTypes.shape({
     answers: PropTypes.arrayOf(
       PropTypes.shape({
@@ -81,6 +64,8 @@ ArtistScreen.propTypes = {
     }),
     type: PropTypes.oneOf([`artist`]).isRequired,
   }).isRequired,
+  onChange: PropTypes.func.isRequired,
+  renderPlayer: PropTypes.func.isRequired,
 };
 
 const mapDispatchToProps = {

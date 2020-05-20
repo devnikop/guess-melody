@@ -29,7 +29,7 @@ const GenreScreen = ({
       >
         {answers.map((answer, index) => (
           <div className="track" key={`answer-${index}`}>
-            {renderPlayer(answer, index)}
+            {renderPlayer(answer.src, index)}
             <div className="game__answer">
               <input
                 className="game__input visually-hidden"

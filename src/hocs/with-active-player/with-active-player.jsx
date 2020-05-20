@@ -22,9 +22,9 @@ const withActivePlayer = (Component) => {
 
       return <Component
         {...this.props}
-        renderPlayer={(answer, index) => {
+        renderPlayer={(src, index) => {
           return <AudioPlayerWrapped
-            src={answer.src}
+            src={src}
             isPlaying={index === activePlayer}
             onPlayButtonClick={this._handlePlayClick.bind(null, index)}
           />
