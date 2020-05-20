@@ -2,14 +2,15 @@ import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import React from "react";
 
+import withActivePlayer from "../../hocs/with-active-player/with-active-player.jsx";
+import withAnswers from "../../hocs/with-answers/with-answers.jsx";
+
 import ArtistScreen from "../artist-screen/artist-screen.jsx";
 import GameHeader from "../game-header/game-header.jsx";
 import GenreScreen from "../genre-screen/genre-screen.jsx";
 import WelcomeScreen from "../welcome-screen/welcome-screen.jsx";
 
-import WithActivePlayer from "../../hocs/with-active-player/with-active-player.jsx";
-
-const GenreScreenWrapped = WithActivePlayer(GenreScreen);
+const GenreScreenWrapped = withActivePlayer(withAnswers(GenreScreen));
 
 const Type = {
   ARTIST: `game--artist`,
