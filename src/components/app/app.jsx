@@ -7,6 +7,10 @@ import GameHeader from "../game-header/game-header.jsx";
 import GenreScreen from "../genre-screen/genre-screen.jsx";
 import WelcomeScreen from "../welcome-screen/welcome-screen.jsx";
 
+import WithActivePlayer from "../../hocs/with-active-player/with-active-player.jsx";
+
+const GenreScreenWrapped = WithActivePlayer(GenreScreen);
+
 const Type = {
   ARTIST: `game--artist`,
   GENRE: `game--genre`,
@@ -44,7 +48,7 @@ class App extends React.PureComponent {
     switch (currentQuestion.type) {
       case `genre`:
         return (
-          <GenreScreen
+          <GenreScreenWrapped
             key={`genre-${questionStep}`}
             question={currentQuestion}
           />

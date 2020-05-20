@@ -11,15 +11,12 @@ class GenreScreen extends React.PureComponent {
     super(props);
 
     this.state = {
-      activePlayer: -1,
       answers: Array(props.question.answers.length).fill(false),
     };
-
-    this._handleFormSubmit = this._handleFormSubmit.bind(this);
   }
 
   render() {
-    const { question } = this.props;
+    const { question, activePlayer } = this.props;
     const { answers, genre } = question;
 
     return (
@@ -32,7 +29,7 @@ class GenreScreen extends React.PureComponent {
           {answers.map((it, i) => (
             <div className="track" key={`answer-${i}`}>
               <AudioPlayer
-                isPlaying={i === this.state.activePlayer}
+                isPlaying={i === activePlayer}
                 onPlayButtonClick={this._handlePlayClick.bind(this, i)}
                 src={it.src}
               />
@@ -60,14 +57,17 @@ class GenreScreen extends React.PureComponent {
   }
 
   _handlePlayClick(index) {
-    this.setState({
-      activePlayer: this.state.activePlayer === index ? -1 : index,
-    })
+    const { onPlayButtonClick } = this.props;
+
+    onPlayButtonClick(index);
   }
 
   _handleFormSubmit(evt) {
+    const { onSubmit } = this.props;
+    const { answers } = this.state;
+
     evt.preventDefault();
-    this.props.onSubmit(this.state.answers);
+    onSubmit(answers);
   }
 
   _handleInputChange(index) {
@@ -86,7 +86,7 @@ class GenreScreen extends React.PureComponent {
 }
 
 GenreScreen.propTypes = {
-  onSubmit: PropTypes.func.isRequired,
+  activePlayer: PropTypes.number.isRequired,
   question: PropTypes.shape({
     answers: PropTypes.arrayOf(
       PropTypes.shape({
@@ -97,6 +97,8 @@ GenreScreen.propTypes = {
     genre: PropTypes.oneOf([`rock`, `pop`, `jazz`]).isRequired,
     type: PropTypes.oneOf([`genre`]).isRequired,
   }),
+  onPlayButtonClick: PropTypes.func.isRequired,
+  onSubmit: PropTypes.func.isRequired,
 };
 
 const mapDispatch = {
