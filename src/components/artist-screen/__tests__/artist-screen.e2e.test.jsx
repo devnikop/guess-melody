@@ -27,14 +27,18 @@ const mock = {
   },
 };
 
-it(`form change`, () => {
+it(`change on first input will call prop onChange(0)`, () => {
   const { question } = mock;
   const spyInputChange = jest.fn();
 
   const wrapper = shallow(
-    <ArtistScreen onChange={spyInputChange} question={question} />
+    <ArtistScreen
+      question={question}
+      onChange={spyInputChange}
+      renderAnswer={jest.fn()}
+    />
   );
 
   wrapper.find(Selector.ARTIST_INPUT).at(0).simulate(`change`);
-  expect(spyInputChange).toHaveBeenCalled();
+  expect(spyInputChange).toHaveBeenCalledWith(0);
 });

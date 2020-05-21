@@ -5,7 +5,7 @@ import { WelcomeScreen } from "../welcome-screen.jsx";
 
 it(`snapshot`, () => {
   const tree = renderer.create(
-    <WelcomeScreen errorCount={0} incrementQuestion={jest.fn()} time={0} />
+    <WelcomeScreen errorCount={0} time={0} incrementQuestion={jest.fn()} />
   ).toJSON();
 
   expect(tree).toMatchSnapshot();

@@ -12,8 +12,8 @@ it(`welcome button click`, () => {
   const wrapper = shallow(
     <WelcomeScreen
       errorCount={0}
-      incrementQuestion={spyButtonClick}
       time={0}
+      incrementQuestion={spyButtonClick}
     />
   );
 

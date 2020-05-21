@@ -1,7 +1,7 @@
 import React from "react";
 import renderer from "react-test-renderer";
 
-import { GenreScreen } from "../genre-screen.jsx";
+import GenreScreen from "../genre-screen.jsx";
 
 const mock = {
   question: {
@@ -20,25 +20,16 @@ const mock = {
   },
 };
 
-const createNodeMock = (element) => {
-  if (element.type === `audio`) {
-    return {};
-  }
-};
-
 it(`snapshot`, () => {
   const { question } = mock;
 
   const tree = renderer.create(
     <GenreScreen
-      activePlayer={-1}
-      answers={[false, false]}
       question={question}
       onFormSubmit={jest.fn()}
       onInputChange={jest.fn()}
-      onPlayButtonClick={jest.fn()}
-    />,
-    { createNodeMock }
+      renderAnswer={jest.fn()}
+    />
   ).toJSON();
   expect(tree).toMatchSnapshot();
 });

@@ -3,8 +3,8 @@ import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import React from "react";
 
-import { genreQuestionType } from "../../types/types";
 import { ActionCreator } from "../../store/reducer";
+import { genreQuestionType } from "../../types/types";
 
 const withAnswers = (Component) => {
   class WithAnswers extends React.PureComponent {

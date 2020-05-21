@@ -10,8 +10,6 @@ Array [
   />,
   <div
     className="track__status"
-  >
-    <audio />
-  </div>,
+  />,
 ]
 `;

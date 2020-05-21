@@ -5,6 +5,5 @@ import { Mistakes } from "../mistakes.jsx";
 
 it(`snapshot`, () => {
   const tree = renderer.create(<Mistakes mistakes={2} />);
-
   expect(tree).toMatchSnapshot();
 });

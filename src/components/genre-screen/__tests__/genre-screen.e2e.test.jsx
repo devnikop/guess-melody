@@ -1,7 +1,7 @@
 import { shallow } from "enzyme";
 import React from "react";
 
-import { GenreScreen } from "../genre-screen.jsx";
+import GenreScreen from "../genre-screen.jsx";
 
 const Selector = {
   GAME_INPUT: `.game__input`,
@@ -9,8 +9,6 @@ const Selector = {
 }
 
 const mock = {
-  activePlayer: -1,
-  answers: [false, false],
   question: {
     answers: [
       {
@@ -33,27 +31,24 @@ describe(`GenreScreen`, () => {
 
   let wrapper;
   beforeEach(() => {
-    const { activePlayer, answers, question } = mock;
+    const { question } = mock;
     wrapper = shallow(
       <GenreScreen
-        activePlayer={activePlayer}
-        answers={answers}
         question={question}
         onFormSubmit={spyOnFormSumbit}
         onInputChange={spyOnInputChange}
-        onPlayButtonClick={jest.fn()}
+        renderAnswer={jest.fn()}
       />
     );
   });
 
   it(`call props onFormSubmit when submit form`, () => {
-    const { answers } = mock;
     const form = wrapper.find(Selector.GAME_TRACKS);
     form.simulate(`submit`, {
       preventDefault: jest.fn(),
     });
 
-    expect(spyOnFormSumbit).toHaveBeenCalledWith(answers)
+    expect(spyOnFormSumbit).toHaveBeenCalled();
   });
 
   it(`call props onInputChange(1) when change second input`, () => {

@@ -1,5 +1,5 @@
+import { shallow } from "enzyme";
 import React from "react";
-import { mount } from "enzyme";
 
 import AudioPlayer from "../audio-player.jsx";
 
@@ -7,14 +7,15 @@ const Selector = {
   PLAY_BUTTON: `.track__button`,
 };
 
-it.skip(`click on play call callback`, () => {
+it(`click on button call onPlayButtonClick`, () => {
   const spyButtonClick = jest.fn();
 
-  const wrapper = mount(
+  const wrapper = shallow(
     <AudioPlayer
-      isPlaying={true}
+      isLoaded={false}
+      isPlaying={false}
       onPlayButtonClick={spyButtonClick}
-      src={`source`}
+      renderAudio={jest.fn()}
     />
   );
 

@@ -20,5 +20,4 @@ App.propTypes = {
   renderScreen: PropTypes.func.isRequired,
 }
 
-export { App };
 export default App;

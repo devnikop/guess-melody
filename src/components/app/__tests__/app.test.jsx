@@ -54,76 +54,24 @@ const mock = {
 };
 
 const initialState = {
-  mistakes: 0,
-  questions: mock.questions,
   currentQuestion: -1,
-};
-
-const genreScreenState = {
+  errorCount: 3,
+  gameTime: 5,
   mistakes: 0,
   questions: mock.questions,
-  currentQuestion: 0,
 };
 
-const artistScreenState = {
-  mistakes: 0,
-  questions: mock.questions,
-  currentQuestion: 1,
-};
+it(`snapshot`, () => {
+  const mockStore = configureStore([]);
+  const store = mockStore(initialState);
 
-const mockStore = configureStore([]);
+  const tree = renderer.create(
+    <Provider store={store}>
+      <App
+        renderScreen={jest.fn()}
+      />
+    </Provider>
+  ).toJSON();
 
-const createNodeMock = (element) => {
-  if (element.type === `audio`) {
-    return {};
-  }
-}
-
-describe(`app snapshots:`, () => {
-  it(`render welcome-screen with initial state`, () => {
-    const store = mockStore(initialState);
-
-    const tree = renderer.create(
-      <Provider store={store}>
-        <App
-          errorCount={5}
-          gameTime={3}
-        />
-      </Provider>
-    ).toJSON();
-
-    expect(tree).toMatchSnapshot();
-  });
-
-  it(`render genre-screen with updated state`, () => {
-    const store = mockStore(genreScreenState);
-
-    const tree = renderer.create(
-      <Provider store={store} >
-        <App
-          errorCount={5}
-          gameTime={3}
-        />
-      </Provider>,
-      { createNodeMock }
-    ).toJSON();
-
-    expect(tree).toMatchSnapshot();
-  });
-
-  it(`render artist-screen with updated state`, () => {
-    const store = mockStore(artistScreenState);
-
-    const tree = renderer.create(
-      <Provider store={store}>
-        <App
-          errorCount={5}
-          gameTime={3}
-        />
-      </Provider>,
-      { createNodeMock }
-    ).toJSON();
-
-    expect(tree).toMatchSnapshot();
-  });
+  expect(tree).toMatchSnapshot();
 });

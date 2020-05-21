@@ -23,18 +23,15 @@ const mock = {
   },
 };
 
-const createNodeMock = (element) => {
-  if (element.type === `audio`) {
-    return {};
-  }
-};
-
 it(`snapshot`, () => {
   const { question } = mock;
 
   const tree = renderer.create(
-    <ArtistScreen onChange={jest.fn()} question={question} />,
-    { createNodeMock }
+    <ArtistScreen
+      question={question}
+      onChange={jest.fn()}
+      renderAnswer={jest.fn()}
+    />
   ).toJSON();
   expect(tree).toMatchSnapshot();
 });

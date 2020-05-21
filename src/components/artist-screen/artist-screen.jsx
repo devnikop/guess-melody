@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import React from "react";
 
 import { ActionCreator } from "../../store/reducer.js";
+import { artistQuestionType } from "../../types/types";
 
 const ArtistScreen = ({
   question,
@@ -28,17 +29,17 @@ const ArtistScreen = ({
             <div className="artist" key={index}>
               <input
                 className="artist__input visually-hidden"
-                type="radio"
-                name="answer"
-                value={`answer-${index}`}
                 id={`answer-${index}`}
+                name="answer"
+                type="radio"
+                value={`answer-${index}`}
                 onChange={_handleInputChange.bind(null, index)}
               />
               <label className="artist__name" htmlFor={`answer-${index}`}>
                 <img
                   className="artist__picture"
-                  src={answer.picture}
                   alt={answer.artist}
+                  src={answer.picture}
                 />
                 {answer.artist}
               </label>
@@ -51,19 +52,7 @@ const ArtistScreen = ({
 }
 
 ArtistScreen.propTypes = {
-  question: PropTypes.shape({
-    answers: PropTypes.arrayOf(
-      PropTypes.shape({
-        picture: PropTypes.string.isRequired,
-        artist: PropTypes.string.isRequired,
-      })
-    ),
-    song: PropTypes.shape({
-      artist: PropTypes.string.isRequired,
-      src: PropTypes.string.isRequired,
-    }),
-    type: PropTypes.oneOf([`artist`]).isRequired,
-  }).isRequired,
+  question: artistQuestionType,
   onChange: PropTypes.func.isRequired,
   renderAnswer: PropTypes.func.isRequired,
 };

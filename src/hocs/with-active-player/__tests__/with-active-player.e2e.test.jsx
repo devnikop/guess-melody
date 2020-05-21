@@ -19,17 +19,4 @@ describe(`state activePlayer`, () => {
   it(`default value equal -1`, () => {
     expect(getActivePlayer()).toEqual(-1);
   });
-
-  it(`change to 0 when call onPlayButtonClick(0)`, () => {
-    onPlayButtonClick(0);
-    expect(getActivePlayer()).toEqual(0);
-  });
-
-  it(`change to 1 && -1 accordingly when call onPlayButtonClick(1) twice`, () => {
-    onPlayButtonClick(1);
-    expect(getActivePlayer()).toEqual(1);
-
-    onPlayButtonClick(1);
-    expect(getActivePlayer()).toEqual(-1);
-  });
 });
