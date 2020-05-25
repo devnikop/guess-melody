@@ -11,6 +11,13 @@ import withActivePlayer from "../with-active-player/with-active-player.jsx";
 import withAnswers from "../with-answers/with-answers.jsx";
 import withTransformProps from "../with-transform-props/with-transform-props.jsx";
 
+import {
+  getCurrentQuestion,
+  getErrorCount,
+  getGameTime,
+} from "../../reducer/game/selectors.js";
+import { getQuestions } from "../../reducer/data/selectors.js";
+
 const transformPlayerToAnswer = (props) => {
   const newProps = {
     ...props,
@@ -104,13 +111,11 @@ const withScreenSwitch = (Component) => {
   return WithScreenSwitch;
 };
 
-
-
 const mapStateToProps = (state) => ({
-  errorCount: state.errorCount,
-  gameTime: state.gameTime,
-  questions: state.questions,
-  questionStep: state.currentQuestion,
+  errorCount: getErrorCount(state),
+  gameTime: getGameTime(state),
+  questions: getQuestions(state),
+  questionStep: getCurrentQuestion(state),
 });
 
 export default compose(

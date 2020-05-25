@@ -2,6 +2,8 @@ import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import React from "react";
 
+import { getMistakes } from "../../reducer/game/selectors";
+
 const MAX_MISTAKES = 3;
 
 const Mistakes = ({ mistakes }) => {
@@ -20,7 +22,7 @@ Mistakes.propTypes = {
 }
 
 const mapStateToProps = (state) => ({
-  mistakes: state.mistakes
+  mistakes: getMistakes(state),
 })
 
 export { Mistakes };

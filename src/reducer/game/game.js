@@ -3,13 +3,11 @@ const initialState = {
   errorCount: 3,
   gameTime: 5,
   mistakes: 0,
-  questions: [],
 };
 
 const ActionType = {
   INCREMENT_MISTAKES: `INCREASE_MISTAKES`,
   INCREMENT_STEP: `NEXT_QUESTION`,
-  LOAD_QUESTIONS: `LOAD_QUESTIONS`,
   RESET_STORE: `RESET_STORE`,
 };
 
@@ -65,11 +63,6 @@ const ActionCreator = {
     }
   },
 
-  loadQuestions: (questions) => ({
-    type: ActionType.LOAD_QUESTIONS,
-    payload: questions,
-  }),
-
   incrementMistake: () => ({
     type: ActionType.INCREMENT_MISTAKES,
     payload: 1
@@ -85,25 +78,12 @@ const ActionCreator = {
   })
 };
 
-const Operation = {
-  loadQuestions: () => (dispatch, _getState, api) =>
-    api.get(`/questions`)
-      .then(response => {
-        dispatch(ActionCreator.loadQuestions(response.data))
-      })
-};
-
-const rootReducer = (state = initialState, action) => {
+const reducer = (state = initialState, action) => {
   switch(action.type) {
     case ActionType.INCREMENT_MISTAKES:
       return {
         ...state,
         mistakes: state.mistakes + action.payload
-      }
-    case ActionType.LOAD_QUESTIONS:
-      return {
-        ...state,
-        questions: action.payload,
       }
     case ActionType.INCREMENT_STEP:
       return {
@@ -119,6 +99,5 @@ const rootReducer = (state = initialState, action) => {
 
 export {
   ActionCreator,
-  rootReducer,
-  Operation
+  reducer,
 }

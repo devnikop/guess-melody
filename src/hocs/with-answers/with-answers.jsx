@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import React from "react";
 
-import { ActionCreator } from "../../store/reducer";
+import { ActionCreator } from "../../reducer/game/game";
 import { genreQuestionType } from "../../types/types";
 
 const withAnswers = (Component) => {

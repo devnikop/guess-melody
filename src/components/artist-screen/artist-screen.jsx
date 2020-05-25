@@ -2,7 +2,7 @@ import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import React from "react";
 
-import { ActionCreator } from "../../store/reducer.js";
+import { ActionCreator } from "../../reducer/game/game";
 import { artistQuestionType } from "../../types/types";
 
 const ArtistScreen = ({

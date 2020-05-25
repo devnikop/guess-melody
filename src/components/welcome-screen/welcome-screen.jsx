@@ -2,7 +2,7 @@ import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import React from "react";
 
-import { ActionCreator } from "../../store/reducer";
+import { ActionCreator } from "../../reducer/game/game";
 
 const WelcomeScreen = ({
   errorCount,
