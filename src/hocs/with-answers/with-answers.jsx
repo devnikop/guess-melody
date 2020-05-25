@@ -28,9 +28,9 @@ const withAnswers = (Component) => {
     }
 
     _handleFormSubmit() {
-      const { onFormSubmit } = this.props;
+      const { question, onFormSubmit } = this.props;
       const { answers } = this.state;
-      onFormSubmit(answers)
+      onFormSubmit(answers, question)
     }
 
     _handleInputChange(index) {

@@ -87,24 +87,7 @@ const withScreenSwitch = (Component) => {
   WithScreenSwitch.propTypes = {
     errorCount: PropTypes.number.isRequired,
     gameTime: PropTypes.number.isRequired,
-    questions: PropTypes.arrayOf(
-      PropTypes.shape({
-        answers: PropTypes.arrayOf(
-          PropTypes.shape({
-            artist: PropTypes.string,
-            genre: PropTypes.oneOf([`rock`, `pop`, `jazz`]),
-            picture: PropTypes.string,
-            src: PropTypes.string,
-          })
-        ).isRequired,
-        genre: PropTypes.oneOf([`rock`, `pop`, `jazz`]),
-        song: PropTypes.shape({
-          artist: PropTypes.string,
-          src: PropTypes.string,
-        }),
-        type: PropTypes.oneOf([`genre`, `artist`]).isRequired,
-      })
-    ).isRequired,
+    questions: PropTypes.arrayOf(PropTypes.any).isRequired,
     questionStep: PropTypes.number.isRequired,
   };
 

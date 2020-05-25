@@ -1,3 +1,5 @@
+import { getQuestions } from "../data/selectors";
+
 const initialState = {
   currentQuestion: -1,
   errorCount: 3,
@@ -17,10 +19,10 @@ const isArtistAnswerRight = (question, index) => {
 };
 
 const ActionCreator = {
-  checkArtistQuestion: (answerIndex) => {
-    return function(dispatch, getState) {
-      const {currentQuestion: questionIndex, mistakes, questions} = getState();
-      const currentQuestion = questions[questionIndex];
+  checkArtistQuestion: (answerIndex, currentQuestion) => {
+    return function (dispatch, getState) {
+      const { currentQuestion: questionIndex, mistakes } = getState().GAME;
+      const questions = getQuestions(getState());
 
       if (questionIndex >= questions.length - 1 || mistakes >= 2) {
         dispatch(ActionCreator.resetStore())
@@ -37,8 +39,9 @@ const ActionCreator = {
   },
 
   checkGenreQuestion: (answers) => {
-    return function(dispatch, getState) {
-      const {currentQuestion: questionIndex, mistakes, questions} = getState();
+    return function (dispatch, getState) {
+      const { currentQuestion: questionIndex, mistakes } = getState().GAME;
+      const questions = getQuestions(getState());
 
       const rightAnswerCount = answers.reduce((acc, answer, index) => {
         const currentQuestion = questions[questionIndex];
@@ -79,7 +82,7 @@ const ActionCreator = {
 };
 
 const reducer = (state = initialState, action) => {
-  switch(action.type) {
+  switch (action.type) {
     case ActionType.INCREMENT_MISTAKES:
       return {
         ...state,

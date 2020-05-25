@@ -21,7 +21,7 @@ const genreQuestionType = PropTypes.shape({
       src: PropTypes.string.isRequired,
     })
   ).isRequired,
-  genre: PropTypes.oneOf([`rock`, `pop`, `jazz`]).isRequired,
+  genre: PropTypes.string.isRequired,
   type: PropTypes.oneOf([`genre`]).isRequired,
 });
 

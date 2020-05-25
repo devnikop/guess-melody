@@ -12,8 +12,8 @@ const ArtistScreen = ({
 }) => {
   const { answers, song } = question;
 
-  const _handleInputChange = (index) => {
-    onChange(index);
+  const _handleInputChange = (index, question) => {
+    onChange(index, question);
   }
 
   return (
@@ -33,7 +33,7 @@ const ArtistScreen = ({
                 name="answer"
                 type="radio"
                 value={`answer-${index}`}
-                onChange={_handleInputChange.bind(null, index)}
+                onChange={_handleInputChange.bind(null, index, question)}
               />
               <label className="artist__name" htmlFor={`answer-${index}`}>
                 <img
