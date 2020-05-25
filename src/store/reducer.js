@@ -1,16 +1,17 @@
-import questions from "../mocks/questions";
-
 const initialState = {
   currentQuestion: -1,
   errorCount: 3,
   gameTime: 5,
   mistakes: 0,
-  questions,
+  questions: [],
 };
 
-const INCREMENT_MISTAKES = `INCREASE_MISTAKES`;
-const INCREMENT_STEP = `NEXT_QUESTION`;
-const RESET_STORE = `RESET_STORE`;
+const ActionType = {
+  INCREMENT_MISTAKES: `INCREASE_MISTAKES`,
+  INCREMENT_STEP: `NEXT_QUESTION`,
+  LOAD_QUESTIONS: `LOAD_QUESTIONS`,
+  RESET_STORE: `RESET_STORE`,
+};
 
 const isArtistAnswerRight = (question, index) => {
   return (question.song.artist ===
@@ -64,34 +65,52 @@ const ActionCreator = {
     }
   },
 
+  loadQuestions: (questions) => ({
+    type: ActionType.LOAD_QUESTIONS,
+    payload: questions,
+  }),
+
   incrementMistake: () => ({
-    type: INCREMENT_MISTAKES,
+    type: ActionType.INCREMENT_MISTAKES,
     payload: 1
   }),
 
   incrementStep: () => ({
-    type: INCREMENT_STEP,
+    type: ActionType.INCREMENT_STEP,
     payload: 1
   }),
 
   resetStore: () => ({
-    type: RESET_STORE
+    type: ActionType.RESET_STORE
   })
+};
+
+const Operation = {
+  loadQuestions: () => (dispatch, _getState, api) =>
+    api.get(`/questions`)
+      .then(response => {
+        dispatch(ActionCreator.loadQuestions(response.data))
+      })
 };
 
 const rootReducer = (state = initialState, action) => {
   switch(action.type) {
-    case INCREMENT_MISTAKES:
+    case ActionType.INCREMENT_MISTAKES:
       return {
         ...state,
         mistakes: state.mistakes + action.payload
       }
-    case INCREMENT_STEP:
+    case ActionType.LOAD_QUESTIONS:
+      return {
+        ...state,
+        questions: action.payload,
+      }
+    case ActionType.INCREMENT_STEP:
       return {
         ...state,
         currentQuestion: state.currentQuestion + action.payload
       }
-    case RESET_STORE:
+    case ActionType.RESET_STORE:
       return initialState
     default:
       return state;
@@ -100,5 +119,6 @@ const rootReducer = (state = initialState, action) => {
 
 export {
   ActionCreator,
-  rootReducer
+  rootReducer,
+  Operation
 }
