@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import React from "react";
 
+import AuthorizationScreen from "../../components/authorization-screen/authorization-screen.jsx";
 import ArtistScreen from "../../components/artist-screen/artist-screen.jsx";
 import GenreScreen from "../../components/genre-screen/genre-screen.jsx";
 import WelcomeScreen from "../../components/welcome-screen/welcome-screen.jsx";
@@ -17,6 +18,7 @@ import {
   getGameTime,
 } from "../../reducer/game/selectors.js";
 import { getQuestions } from "../../reducer/data/selectors.js";
+import { getAuthorizationStatus } from "../../reducer/user/selectors.js";
 
 const transformPlayerToAnswer = (props) => {
   const newProps = {
@@ -50,7 +52,7 @@ const withScreenSwitch = (Component) => {
     }
 
     _getScreen() {
-      const { questionStep } = this.props;
+      const { isAuthorizationRequired, questionStep } = this.props;
 
       if (questionStep === -1) {
         const { errorCount, gameTime } = this.props;
@@ -61,6 +63,12 @@ const withScreenSwitch = (Component) => {
             time={gameTime}
           />
         );
+      }
+
+      if (isAuthorizationRequired) {
+        return (
+          <AuthorizationScreen />
+        )
       }
 
       const currentQuestion = this.props.questions[questionStep];
@@ -85,6 +93,7 @@ const withScreenSwitch = (Component) => {
   }
 
   WithScreenSwitch.propTypes = {
+    isAuthorizationRequired: PropTypes.bool.isRequired,
     errorCount: PropTypes.number.isRequired,
     gameTime: PropTypes.number.isRequired,
     questions: PropTypes.arrayOf(PropTypes.any).isRequired,
@@ -95,6 +104,7 @@ const withScreenSwitch = (Component) => {
 };
 
 const mapStateToProps = (state) => ({
+  isAuthorizationRequired: getAuthorizationStatus(state),
   errorCount: getErrorCount(state),
   gameTime: getGameTime(state),
   questions: getQuestions(state),

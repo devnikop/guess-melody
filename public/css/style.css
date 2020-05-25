@@ -596,7 +596,7 @@ img {
 
 .game__header {
   display: flex;
-  margin-bottom: 210px;
+  margin-bottom: 120px;
   width: 100%; }
 
 .game__back {
@@ -874,8 +874,7 @@ img {
   height: 100%; }
 
 .login__logo {
-  margin: 0;
-  margin-top: 220px; }
+  margin: 0; }
 
 .login__title {
   margin: 0;

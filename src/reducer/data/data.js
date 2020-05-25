@@ -14,11 +14,10 @@ const ActionCreator = {
 };
 
 const Operation = {
-  loadQuestions: () => (dispatch, _getState, api) =>
-    api.get(`/questions`)
-      .then(response => {
-        dispatch(ActionCreator.loadQuestions(response.data))
-      })
+  loadQuestions: () => async (dispatch, _getState, api) => {
+    const response = await api.get(`/questions`);
+    dispatch(ActionCreator.loadQuestions(response.data))
+  }
 };
 
 const reducer = (state = initialState, action) => {
