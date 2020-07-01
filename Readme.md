@@ -10,17 +10,16 @@
 * [General info](#General-info)
 * [Technologies](#Technologies)
 * [Setup](#Setup)
-* [Features](#Features)
+* [Inspiration](#Features)
+* [License](#License)
 
 ## General info
 
-This web application was created for mastering React.js.
+This web application was created for mastering base js. It has no real use.
 
 ## Technologies
 
-* [React](https://reactjs.org/)
-* [Redux](https://redux.js.org/)
-* [Jest](https://jestjs.io/)
+* Vanilla js
 
 ## Setup
 
@@ -38,18 +37,9 @@ npm run install
 npm run start
 ```
 
-## Features
-
-* This app has no real use, it was created only to practice with some technologies.
-
-### To do
-
-* Add routing
-* Rewrite on typescript
-
 ## Inspiration
 
-This app is based on [Html Academy](https://htmlacademy.ru/)'s intensive [React. Разработка сложных клиентских приложений](https://htmlacademy.ru/intensive/react).
+This app is based on [Html Academy](https://htmlacademy.ru/)'s intensive [JavaScript. Архитектура клиентских приложений](https://htmlacademy.ru/intensive/ecmascript).
 
 ## License
 
