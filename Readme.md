@@ -1,5 +1,5 @@
 # Guest melody
-> Simple project for guessing melodies.
+> Study project for guessing melodies.
 
 ![Preview screenshot](./readme_assets/preview.jpg)
 
